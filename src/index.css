@@ -24,17 +24,3 @@ body {
 .navbar > h2:hover {
   transform: scale(110%);
 }
-
-.homepage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 100px;
-  text-align: center;
-}
-
-.homepage > h1 {
-  font-size: min(2rem, 5vw);
-}
-
