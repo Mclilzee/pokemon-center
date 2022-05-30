@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #4b7ac7;
+  color: white;
+  cursor: pointer;
+  font-size: min(1rem, 3vw);
+  box-shadow: black 1px 5px 10px;;
+}
+
+.navbar > h2:hover {
+  transform: scale(110%);
+}
