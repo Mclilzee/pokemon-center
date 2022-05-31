@@ -1,0 +1,9 @@
+.pokemon-cards-container {
+  display: flex;
+  width: 100%;
+}
+
+.pokemon-card {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+}
