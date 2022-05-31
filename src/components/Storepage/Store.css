@@ -1,8 +1,11 @@
 .store-container {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pokemon-cards-container {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);
   justify-content: center;
@@ -22,4 +25,18 @@
 
 .pokemon-card > img {
   max-width: 100%;
+}
+
+.page-number-container {
+  display: flex;
+  gap: 10px;
+}
+
+.page-number-container > .page-number {
+  font-size: 3rem;
+}
+
+.page-number-container > img {
+  display: flex;
+  justify-content: center;
 }
