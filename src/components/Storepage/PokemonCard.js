@@ -11,7 +11,6 @@ function PokemonCard(props) {
   async function getPokemonDetails() {
     const data = await fetch(props.url);
     const item = await data.json();
-    console.log(item);
     setPokemon(item);
   }
 
