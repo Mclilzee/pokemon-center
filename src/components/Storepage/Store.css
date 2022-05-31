@@ -1,7 +1,11 @@
+.store-container {
+
+}
+
 .pokemon-cards-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: 100%;
+  grid-template-columns: repeat(auto-fit, 200px);
+  justify-content: center;
   gap: 20px;
   padding: 20px;
 }
