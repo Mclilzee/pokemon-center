@@ -5,20 +5,51 @@ import Page from "./Page";
 
 function Store(props) {
 
-  const [pokemonsArray, setPokemonsArray] = React.useState([]);
-  const [pageNumber, setPageNumber] = React.useState(56);
+  const [pokemonsDB, setPokemonsDB] = React.useState([]);
+  const [pageNumber, setPageNumber] = React.useState(1);
+  const [searchText, setSearchText] = React.useState("");
+  const [foundPokemons, setFoundPokemons] = React.useState([]);
+  const [pokemonsArraySlice, setPokemonsArraySlice] = React.useState([]);
+  const [maxPageNumber, setMaxPageNumber] = React.useState(57);
 
   React.useEffect(() => {
-    getPokemons();
-  }, [pageNumber]);
+    fetchPokemons();
+  }, []);
 
+  React.useEffect(() => {
+    setMaxPageNumber(Math.ceil(foundPokemons.length / 20));
+  }, [foundPokemons]);
 
-  async function getPokemons() {
+  React.useEffect(() => {
     const offset = (pageNumber - 1) * 20;
-    const fetchString = `https://pokeapi.co/api/v2/pokemon?offset=${offset}`;
-    const pokemonsData = await fetch(fetchString);
-    const pokemons = await pokemonsData.json();
-    setPokemonsArray(pokemons.results);
+    const limit = offset + 20;
+    setPokemonsArraySlice(foundPokemons.slice(offset, limit));
+  }, [pageNumber, foundPokemons]);
+
+  React.useEffect(() => {
+    let found = [];
+    const pattern = new RegExp(searchText, 'i');
+
+    if (searchText.length === 0) {
+      found = pokemonsDB;
+
+    } else {
+
+      for (let pokemon of pokemonsDB) {
+        if (pokemon.name.match(pattern)) {
+          found.push(pokemon);
+        }
+      }
+    }
+
+    setFoundPokemons(found);
+    setPageNumber(1);
+  }, [searchText, pokemonsDB]);
+
+  async function fetchPokemons() {
+    const pokemonData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
+    const pokemonItems = await pokemonData.json();
+    setPokemonsDB(pokemonItems.results);
   }
 
   function previousPage() {
@@ -35,7 +66,11 @@ function Store(props) {
     setPageNumber(prevState => prevState + 1);
   }
 
-  const pokemonCards = pokemonsArray.map(pokemon => {
+  function onChangeSearchText(e) {
+    setSearchText(e.target.value);
+  }
+
+  const pokemonCards = pokemonsArraySlice.map(pokemon => {
     return (
       <PokemonCard
         key={pokemon.name}
@@ -46,10 +81,11 @@ function Store(props) {
 
   return (
     <div className={"store-container"}>
+      <input onChange={onChangeSearchText} type={"text"} value={searchText}/>
       <div className={"pokemon-cards-container"}>
-        {pokemonCards.length > 0 ? pokemonCards : <h1>Loading...</h1>}
+        {pokemonCards.length > 0 ? pokemonCards : <h1 className={"not-found"}>Not Found :(</h1>}
       </div>
-      <Page nextPage={nextPage} previousPage={previousPage} pageNumber={pageNumber}/>
+      <Page nextPage={nextPage} previousPage={previousPage} pageNumber={pageNumber} maxPageNumber={maxPageNumber}/>
     </div>
   );
 }

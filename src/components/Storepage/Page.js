@@ -7,7 +7,7 @@ function Page(props) {
   };
 
   const nextPageStyle = {
-    opacity: props.pageNumber === 57 ? "0" : "1"
+    opacity: props.pageNumber === props.maxPageNumber ? "0" : "1"
   };
 
   return (
