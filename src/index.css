@@ -7,10 +7,13 @@ body {
   font-family: 'Handlee', cursive;
   letter-spacing: 2px;
   word-spacing: 5px;
+  position: relative;
 }
 
 
 .navbar {
+  position: sticky;
+  top: 0;
   width: 100%;
   display: flex;
   justify-content: space-around;
