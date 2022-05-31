@@ -81,7 +81,7 @@ function Store(props) {
 
   return (
     <div className={"store-container"}>
-      <input onChange={onChangeSearchText} type={"text"} value={searchText}/>
+      <input placeholder={"Search Pokemon Name"} onChange={onChangeSearchText} type={"text"} value={searchText}/>
       <div className={"pokemon-cards-container"}>
         {pokemonCards.length > 0 ? pokemonCards : <h1 className={"not-found"}>Not Found :(</h1>}
       </div>

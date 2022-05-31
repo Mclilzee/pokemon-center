@@ -4,9 +4,7 @@
 
 body {
   margin: 0;
-  font-family: 'Handlee', cursive;
-  letter-spacing: 2px;
-  word-spacing: 5px;
+  font-family: sans-serif;
   position: relative;
 }
 

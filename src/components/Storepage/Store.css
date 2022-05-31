@@ -4,6 +4,14 @@
   align-items: center;
 }
 
+.store-container > input {
+  width: 60%;
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
 .pokemon-cards-container {
   width: 100%;
   display: grid;
@@ -34,9 +42,20 @@
 
 .page-number-container > .page-number {
   font-size: 3rem;
+  cursor: pointer;
+}
+
+.page-number-container > .next-page-number,
+.page-number-container > .previous-page-number {
+  cursor: pointer;
 }
 
 .page-number-container > img {
   display: flex;
   justify-content: center;
+  cursor: pointer;
+}
+
+.page-number-container > *:hover {
+  transform: scale(110%);
 }
