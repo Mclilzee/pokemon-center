@@ -10,13 +10,27 @@ function Store(props) {
 
   React.useEffect(() => {
     getPokemons();
-  }, []);
+  }, [pageNumber]);
 
 
   async function getPokemons() {
-    const pokemonsData = await fetch("https://pokeapi.co/api/v2/pokemon");
+    const offset = (pageNumber - 1) * 20;
+    const fetchString = `https://pokeapi.co/api/v2/pokemon?offset=${offset}`;
+    const pokemonsData = await fetch(fetchString);
     const pokemons = await pokemonsData.json();
     setPokemonsArray(pokemons.results);
+  }
+
+  function previousPage() {
+    if (pageNumber === 1) {
+      return;
+    }
+    setPageNumber(prevState => prevState - 1);
+  }
+
+  function nextPage() {
+
+    setPageNumber(prevState => prevState + 1);
   }
 
   const pokemonCards = pokemonsArray.map(pokemon => {
@@ -33,7 +47,7 @@ function Store(props) {
       <div className={"pokemon-cards-container"}>
         {pokemonCards.length > 0 ? pokemonCards : <h1>Loading...</h1>}
       </div>
-      <Page pageNumber={pageNumber}/>
+      <Page nextPage={nextPage} previousPage={previousPage} pageNumber={pageNumber}/>
     </div>
   );
 }
