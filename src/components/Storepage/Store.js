@@ -6,7 +6,7 @@ import Page from "./Page";
 function Store(props) {
 
   const [pokemonsArray, setPokemonsArray] = React.useState([]);
-  const [pageNumber, setPageNumber] = React.useState(1);
+  const [pageNumber, setPageNumber] = React.useState(56);
 
   React.useEffect(() => {
     getPokemons();
@@ -29,7 +29,9 @@ function Store(props) {
   }
 
   function nextPage() {
-
+    if (pageNumber === 57) {
+      return;
+    }
     setPageNumber(prevState => prevState + 1);
   }
 
