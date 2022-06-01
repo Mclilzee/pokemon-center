@@ -1,6 +1,7 @@
 import React from "react";
 import { screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import UserEvent from "@testing-library/user-event";
 import Page from "./Page";
 
 describe("Basic Rendering", () => {
@@ -69,6 +70,56 @@ describe("Basic Rendering", () => {
 
 });
 
-describe("Test incrementing and decrementing functions" , () => {
+describe("Test incrementing and decrementing functions", () => {
+  test("Function called on next page number click", () => {
 
-})
+    const nextPage = jest.fn();
+
+    render(<Page pageNumber={2} nextPage={nextPage}/>);
+
+    const nextPageNumber = screen.getByText("3");
+    UserEvent.click(nextPageNumber);
+    UserEvent.click(nextPageNumber);
+
+    expect(nextPage).toBeCalledTimes(2);
+  });
+
+  test("Function called on previous page number click", () => {
+
+    const previousPage = jest.fn();
+
+    render(<Page pageNumber={2} previousPage={previousPage}/>);
+
+    const previousPageNumber = screen.getByText("1");
+    UserEvent.click(previousPageNumber);
+    UserEvent.click(previousPageNumber);
+
+    expect(previousPage).toBeCalledTimes(2);
+  });
+
+  test("Function called on next arrow click", () => {
+
+    const nextPage = jest.fn();
+
+    render(<Page pageNumber={2} nextPage={nextPage}/>);
+
+    const nextPageArrow = screen.getByAltText("next arrow");
+    UserEvent.click(nextPageArrow);
+    UserEvent.click(nextPageArrow);
+
+    expect(nextPage).toBeCalledTimes(2);
+  });
+
+  test("Function called on next arrow click", () => {
+
+    const previousPage = jest.fn();
+
+    render(<Page pageNumber={2} previousPage={previousPage}/>);
+
+    const previousPageArrow = screen.getByAltText("previous arrow");
+    UserEvent.click(previousPageArrow);
+    UserEvent.click(previousPageArrow);
+
+    expect(previousPage).toBeCalledTimes(2);
+  });
+});
