@@ -17,6 +17,11 @@ function Store(props) {
   }, []);
 
   React.useEffect(() => {
+    if (foundPokemons.length === 0) {
+      setMaxPageNumber(1);
+      setPageNumber(0)
+      return;
+    }
     setMaxPageNumber(Math.ceil(foundPokemons.length / 20));
   }, [foundPokemons]);
 

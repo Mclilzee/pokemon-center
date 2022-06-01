@@ -10,8 +10,12 @@ function Page(props) {
     opacity: props.pageNumber === props.maxPageNumber ? "0" : "1"
   };
 
+  const containerStyle = {
+    display: props.pageNumber === 0 ? "none" : ""
+  };
+
   return (
-    <div className={"page-number-container"}>
+    <div style={containerStyle} className={"page-number-container"}>
       <img style={previousPageStyle} onClick={props.previousPage} className="previous-page-arrow"
            src={"./assets/icons/arrow_previous.svg"}
            alt={"previous arrow"}/>
