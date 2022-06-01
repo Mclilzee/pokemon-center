@@ -1,38 +1,25 @@
 import React from "react";
+import Pokemon from "./Pokemon";
 
 function PokemonCard(props) {
 
   const [pokemon, setPokemon] = React.useState(null);
   const [amount, setAmount] = React.useState(1);
+  const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
     async function getPokemonDetails() {
-      const data = await fetch(props.url);
-      const item = await data.json();
-      setPokemon(item);
+      try {
+        const data = await fetch(props.url);
+        const item = await data.json();
+        setPokemon(item);
+      } catch {
+        setError("Error loading information");
+      }
     }
 
     getPokemonDetails();
   }, [props.url]);
-
-
-  function capitalize(text) {
-    if (text.length < 1) {
-      return;
-    }
-
-    return text[0].toUpperCase() + text.slice(1);
-  }
-
-  function generateTypeString() {
-    let typeArray = [];
-
-    for (let type of pokemon.types) {
-      typeArray.push(type.type.name);
-    }
-
-    return typeArray.join(" / ");
-  }
 
   function changeAmount(e) {
     let result = e.target.value;
@@ -49,32 +36,15 @@ function PokemonCard(props) {
     e.preventDefault();
   }
 
-  function loadPokemon() {
-    if (pokemon === null) {
-      return <h1>Loading...</h1>;
-    }
-
-    const img = pokemon.sprites.other["official-artwork"]["front_default"];
-
-    return (
-      <>
-        <img className={"pokemon-image"} src={img !== null ? img : "./assets/images/pokemon-ball.png"}
-             alt={`${pokemon.name}`}/>
-        <h2 className={"pokemon-name"}>{capitalize(pokemon.name)}</h2>
-        <h4 className={"pokemon-type"}>{generateTypeString()}</h4>
-        <button className={"details-button"}>Details</button>
-        <form onSubmit={onSubmit} className={"add-form"}>
-          <button className={"add-button"}>Add to Cart</button>
-          <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
-        </form>
-      </>
-    );
-  }
-
-
   return (
     <div className={"pokemon-card"}>
-      {loadPokemon()}
+      {pokemon ? <Pokemon name={pokemon.name} types={pokemon.types}
+                          img={pokemon.sprites.other["official-artwork"]["front_default"]}/> : <h1>{error}</h1>}
+      <button className={"details-button"}>Details</button>
+      <form onSubmit={onSubmit} className={"add-form"}>
+        <button className={"add-button"}>Add to Cart</button>
+        <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
+      </form>
     </div>
 
 
