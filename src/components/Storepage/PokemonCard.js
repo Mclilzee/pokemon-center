@@ -21,6 +21,24 @@ function PokemonCard(props) {
     getPokemonDetails();
   }, [props.url]);
 
+  function generateTypeString() {
+    let typeArray = [];
+
+    for (let type of pokemon.types) {
+      typeArray.push(type.type.name);
+    }
+
+    return typeArray.join(" / ");
+  }
+
+  function capitalizeName() {
+    if (pokemon.name.length < 1) {
+      return;
+    }
+
+    return pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+  }
+
   function changeAmount(e) {
     let result = e.target.value;
     if (result < 1) {
@@ -38,7 +56,7 @@ function PokemonCard(props) {
 
   return (
     <div className={"pokemon-card"}>
-      {pokemon ? <Pokemon name={pokemon.name} types={pokemon.types}
+      {pokemon ? <Pokemon name={capitalizeName()} type={generateTypeString()}
                           img={pokemon.sprites.other["official-artwork"]["front_default"]}/> : <h1>{error}</h1>}
       <button className={"details-button"}>Details</button>
       <form onSubmit={onSubmit} className={"add-form"}>

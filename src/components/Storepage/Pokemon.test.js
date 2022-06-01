@@ -51,6 +51,6 @@ test("Test for placeholder image", () => {
   );
 
   const pokmeonImage = screen.getByAltText("bulbasaur");
-  expect(pokmeonImage).toBeInTheDocument();
+  expect(pokmeonImage.src).toMatch(/pokemon-ball.png$/);
 });
 
