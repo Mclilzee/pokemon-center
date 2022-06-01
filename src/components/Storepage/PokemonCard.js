@@ -13,7 +13,7 @@ function PokemonCard(props) {
     }
 
     getPokemonDetails();
-  }, []);
+  }, [props.url]);
 
 
   function capitalize(text) {
@@ -48,9 +48,11 @@ function PokemonCard(props) {
       return <h1>Loading...</h1>;
     }
 
+    const img = pokemon.sprites.other["official-artwork"]["front_default"];
+
     return (
       <>
-        <img className={"pokemon-image"} src={pokemon.sprites.other["official-artwork"]["front_default"]}
+        <img className={"pokemon-image"} src={img !== null ? img : "./assets/images/pokemon-ball.png"}
              alt={`${pokemon.name}`}/>
         <h2 className={"pokemon-name"}>{capitalize(pokemon.name)}</h2>
         <h4 className={"pokemon-type"}>{generateTypeString()}</h4>
