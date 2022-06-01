@@ -45,6 +45,10 @@ function PokemonCard(props) {
     setAmount(result);
   }
 
+  function onSubmit(e) {
+    e.preventDefault();
+  }
+
   function loadPokemon() {
     if (pokemon === null) {
       return <h1>Loading...</h1>;
@@ -59,7 +63,7 @@ function PokemonCard(props) {
         <h2 className={"pokemon-name"}>{capitalize(pokemon.name)}</h2>
         <h4 className={"pokemon-type"}>{generateTypeString()}</h4>
         <button className={"details-button"}>Details</button>
-        <form className={"add-form"}>
+        <form onSubmit={onSubmit} className={"add-form"}>
           <button className={"add-button"}>Add to Cart</button>
           <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
         </form>
