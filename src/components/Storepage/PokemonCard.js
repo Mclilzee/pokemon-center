@@ -38,6 +38,8 @@ function PokemonCard(props) {
     let result = e.target.value;
     if (result < 1) {
       result = 1;
+    } else if (result > 100) {
+      result = 100;
     }
 
     setAmount(result);
@@ -57,8 +59,10 @@ function PokemonCard(props) {
         <h2 className={"pokemon-name"}>{capitalize(pokemon.name)}</h2>
         <h4 className={"pokemon-type"}>{generateTypeString()}</h4>
         <button className={"details-button"}>Details</button>
-        <input className={"amount-input"} onChange={changeAmount} type={"number"} value={amount}/>
-        <button className={"add-button"}>Add {amount} to Cart</button>
+        <form className={"add-form"}>
+          <button className={"add-button"}>Add to Cart</button>
+          <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
+        </form>
       </>
     );
   }

@@ -15,7 +15,7 @@
 .pokemon-cards-container {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
+  grid-template-columns: repeat(auto-fit, 250px);
   justify-content: center;
   gap: 20px;
   padding: 20px;
@@ -26,11 +26,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border: solid black;
   border-radius: 10px;
   box-shadow: black 1px 1px 10px;
   text-align: center;
-  padding-bottom: 20px;
+}
+
+.pokemon-card > .pokemon-image {
+  max-width: 100%;
 }
 
 .pokemon-card > .pokemon-name,
@@ -38,8 +42,42 @@
   margin: 0;
 }
 
-.pokemon-card > .pokemon-image {
-  max-width: 100%;
+.pokemon-card > .pokemon-type {
+  margin-bottom: 10px;
+}
+
+.pokemon-card button {
+  width: 100%;
+  border: none;
+  background-color: cadetblue;
+  padding: 5px;
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pokemon-card button:hover {
+  color: yellow;
+}
+
+.pokemon-card > .add-form {
+  width: 100%;
+  display: flex;
+}
+
+.pokemon-card > .add-form > .add-button {
+  flex-grow: 1;
+  border-bottom-left-radius: 6px;
+  background-color: rebeccapurple;
+}
+
+.pokemon-card > .add-form > .add-input {
+  font-family: sans-serif;
+  max-width: 60px;
+  font-size: 1rem;
+  text-align: center;
+  border-bottom-right-radius: 6px;
 }
 
 .page-number-container {
