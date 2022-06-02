@@ -3,18 +3,22 @@ import { screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Pokemon from "./Pokemon";
 import pokemon from "./Pokemon";
+import { act } from "react-dom/test-utils";
 
 describe("Includes all render elements", () => {
   test("Renders correctly", () => {
   });
 
   beforeEach(() => {
-    render(
-      <Pokemon
-        name={"bulbasaur"}
-        type={["grass", "poison"]}
-        img={"mockImageURL"}
-      />
+    act(() => {
+        render(
+          <Pokemon
+            name={"bulbasaur"}
+            type={"grass / poison"}
+            img={"mockImageURL"}
+          />
+        );
+      }
     );
   });
 
@@ -30,7 +34,7 @@ describe("Includes all render elements", () => {
 
   test("Pokemon display correct type", () => {
     const pokemonType = screen.getByTestId("type-test");
-    expect(pokemonType.textContent).toBe("grasspoison");
+    expect(pokemonType.textContent).toBe("grass / poison");
   });
 
   test("Pokemon image display correctly", () => {

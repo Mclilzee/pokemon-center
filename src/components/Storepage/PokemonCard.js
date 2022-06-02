@@ -54,18 +54,33 @@ function PokemonCard(props) {
     e.preventDefault();
   }
 
+  function loadInformation() {
+    if (error !== null) {
+      return <h1 data-testid={"error-message"}>{error}</h1>;
+    } else {
+      return (
+        <>
+          {
+            pokemon ?
+              <Pokemon
+                name={capitalizeName()}
+                type={generateTypeString()}
+                img={pokemon.sprites.other["official-artwork"]["front_default"]}
+              /> : <h1>Loading...</h1>
+          }
+          <button className={"details-button"}>Details</button>
+          <form onSubmit={onSubmit} className={"add-form"}>
+            <button className={"add-button"}>Add to Cart</button>
+            <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
+          </form>
+        </>);
+    }
+  }
+
   return (
-    <div className={"pokemon-card"}>
-      {pokemon ? <Pokemon name={capitalizeName()} type={generateTypeString()}
-                          img={pokemon.sprites.other["official-artwork"]["front_default"]}/> : <h1>{error}</h1>}
-      <button className={"details-button"}>Details</button>
-      <form onSubmit={onSubmit} className={"add-form"}>
-        <button className={"add-button"}>Add to Cart</button>
-        <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
-      </form>
+    <div data-testid="card-test" className={"pokemon-card"}>
+      {loadInformation()}
     </div>
-
-
   );
 }
 
