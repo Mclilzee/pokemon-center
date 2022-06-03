@@ -2,6 +2,7 @@ import React from "react";
 import { screen, render, getByText, waitForElementToBeRemoved, findByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PokemonCard from "./PokemonCard";
+import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 
 const mockPokemon = {
@@ -27,6 +28,10 @@ const mockPokemon = {
   }
 };
 
+afterEach(() => {
+  global.fetch.mockRestore();
+});
+
 describe("Renders all elements", () => {
   beforeEach(() => {
     jest.spyOn(global, "fetch").mockImplementation(async () => {
@@ -34,10 +39,6 @@ describe("Renders all elements", () => {
         json: () => Promise.resolve(mockPokemon)
       });
     });
-  });
-
-  afterEach(() => {
-    global.fetch.mockRestore();
   });
 
   test("Renders correctly", async () => {
@@ -102,10 +103,6 @@ describe("Test loading message", () => {
     });
   });
 
-  afterEach(() => {
-    global.fetch.mockRestore();
-  });
-
   test("Loading message shows", () => {
     act(() => {
       render(<PokemonCard url={"mockURL"}/>);
@@ -125,16 +122,12 @@ describe("Test loading message", () => {
   });
 });
 
-describe("Error loading data", () => {
+describe("Show Error loading data message on fetch failure", () => {
 
   beforeEach(() => {
     jest.spyOn(global, "fetch").mockImplementation(async () => {
       return Promise.reject();
     });
-  });
-
-  afterEach(() => {
-    global.fetch.mockRestore();
   });
 
   test("Show error message", async () => {
@@ -153,5 +146,81 @@ describe("Error loading data", () => {
 
     const container = await screen.findByTestId("card-test");
     expect(container.children.length).toBe(1);
+  });
+});
+
+describe("User input functionality", () => {
+  beforeEach(() => {
+    jest.spyOn(global, "fetch").mockImplementation(async () => {
+      return Promise.resolve({
+        json: () => Promise.resolve(mockPokemon)
+      });
+    });
+  });
+
+  test("Submit function called", async () => {
+    const mockSubmit = jest.fn();
+    await act(async () => {
+      render(<PokemonCard handleSubmit={mockSubmit}/>);
+    });
+
+    const submitButton = screen.getByRole("button", {name: "Add to Cart"});
+
+    userEvent.click(submitButton);
+    userEvent.click(submitButton);
+    expect(mockSubmit).toBeCalledTimes(2);
+  });
+
+  test("Details function called", async () => {
+    await act(async () => {
+      render(<PokemonCard/>);
+    });
+
+    const detailsButton = screen.getByRole("button", {name: "Details"});
+
+    userEvent.click(detailsButton);
+    userEvent.click(detailsButton);
+    // TODO
+  });
+
+  test("Change input the right amount", async () => {
+    await act(async () => {
+      render(<PokemonCard/>);
+    });
+
+    const inputField = screen.getByDisplayValue("1");
+    userEvent.clear(inputField);
+    userEvent.type(inputField, "2");
+    expect(inputField.value).toBe("2");
+  });
+
+  test("Input max limit", async () => {
+    await act(async () => {
+      render(<PokemonCard/>);
+    });
+
+    const inputField = screen.getByDisplayValue("1");
+    userEvent.type(inputField, "9999");
+    expect(inputField.value).toBe("100");
+  });
+
+  test("Input min limit", async () => {
+    await act(async () => {
+      render(<PokemonCard/>);
+    });
+
+    const inputField = screen.getByDisplayValue("1");
+    userEvent.type(inputField, "-20");
+    expect(inputField.value).toBe("1");
+  });
+
+  test("Input can't be empty", async () => {
+    await act(async () => {
+      render(<PokemonCard/>);
+    });
+
+    const inputField = screen.getByDisplayValue("1");
+    userEvent.clear(inputField);
+    expect(inputField.value).toBe("1");
   });
 });

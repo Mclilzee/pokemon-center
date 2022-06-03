@@ -50,8 +50,9 @@ function PokemonCard(props) {
     setAmount(result);
   }
 
-  function onSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
+    props.handleSubmit(pokemon.name, amount);
   }
 
   function loadInformation() {
@@ -69,7 +70,7 @@ function PokemonCard(props) {
               /> : <h1>Loading...</h1>
           }
           <button className={"details-button"}>Details</button>
-          <form onSubmit={onSubmit} className={"add-form"}>
+          <form onSubmit={handleSubmit} className={"add-form"}>
             <button className={"add-button"}>Add to Cart</button>
             <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
           </form>

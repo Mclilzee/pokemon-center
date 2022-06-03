@@ -80,6 +80,7 @@ function Store(props) {
       <PokemonCard
         key={pokemon.name}
         url={pokemon.url}
+        handleSubmit={props.handleSubmit}
       />
     );
   });
