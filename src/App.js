@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Homepage from "./components/Homepage/Homepage";
 import Store from "./components/Storepage/Store";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -9,7 +10,7 @@ function App() {
 
   function addPokemonToCart(amount, pokemonName) {
     setCartArray(prevState => {
-      let newArray = [...prevState]
+      let newArray = [...prevState];
       for (let pokemon of newArray) {
         if (pokemon.name === pokemonName) {
           pokemon.amount += amount;
@@ -17,8 +18,8 @@ function App() {
         }
       }
 
-      newArray.push({name: pokemonName, amount})
-      return newArray
+      newArray.push({name: pokemonName, amount});
+      return newArray;
     });
 
   }
@@ -26,9 +27,11 @@ function App() {
 
   return (
     <div>
-      <Navbar/>
-      {/*<Homepage/>*/}
-      <Store handleSubmit={addPokemonToCart}/>
+      <Navbar cartLength={cartArray.length}/>
+        <Routes>
+          <Route path={"/"} element={<Homepage/>}/>
+          <Route path={"/store"} element={<Store handleSubmit={addPokemonToCart}/>}/>
+        </Routes>
     </div>
   );
 }

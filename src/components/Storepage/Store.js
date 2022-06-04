@@ -2,6 +2,7 @@ import React from "react";
 import PokemonCard from "./PokemonCard";
 import "./Store.css";
 import Page from "./Page";
+import { useParams } from "react-router-dom";
 
 function Store(props) {
 
@@ -19,7 +20,7 @@ function Store(props) {
   React.useEffect(() => {
     if (foundPokemons.length === 0) {
       setMaxPageNumber(1);
-      setPageNumber(0)
+      setPageNumber(0);
       return;
     }
     setMaxPageNumber(Math.ceil(foundPokemons.length / 20));
@@ -85,11 +86,20 @@ function Store(props) {
     );
   });
 
+  function generateLoadingMessage() {
+    if (searchText.length === 0) {
+      return <h1 className={"loading"}>Loading...</h1>;
+    } else {
+      return <h1 className={"loading"}>Not Found :(</h1>;
+
+    }
+  }
+
   return (
     <div className={"store-container"}>
       <input placeholder={"Search Pokemon Name"} onChange={onChangeSearchText} type={"text"} value={searchText}/>
       <div className={"pokemon-cards-container"}>
-        {pokemonCards.length > 0 ? pokemonCards : <h1 className={"not-found"}>Not Found :(</h1>}
+        {pokemonCards.length > 0 ? pokemonCards : generateLoadingMessage()}
       </div>
       <Page nextPage={nextPage} previousPage={previousPage} pageNumber={pageNumber} maxPageNumber={maxPageNumber}/>
     </div>
