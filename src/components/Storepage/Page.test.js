@@ -3,66 +3,85 @@ import { screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import UserEvent from "@testing-library/user-event";
 import Page from "./Page";
+import { act } from "react-dom/test-utils";
 
 describe("Basic Rendering", () => {
   test("Renders correctly", () => {
-    render(<Page pageNumber={5}/>);
+    act(() => {
+      render(<Page pageNumber={5}/>);
+    });
 
     const pageNumber = screen.getByText("5");
     expect(pageNumber).toBeInTheDocument();
   });
 
   test("Previous Page Number hidden", () => {
-    render(<Page pageNumber={1}/>);
+    act(() => {
+      render(<Page pageNumber={1}/>);
+    });
 
     const previousPageNumber = screen.getByTestId("previous-number");
     expect(previousPageNumber).not.toBeVisible();
   });
 
   test("Prevoius Page Number visible", () => {
-    render(<Page pageNumber={2}/>);
+    act(() => {
+      render(<Page pageNumber={2}/>);
+    });
 
     const previousPageNumber = screen.getByTestId("previous-number");
     expect(previousPageNumber).toBeVisible();
   });
 
   test("Next Page Number hidden", () => {
-    render(<Page pageNumber={2} maxPageNumber={2}/>);
+    act(() => {
+      render(<Page pageNumber={2} maxPageNumber={2}/>);
+    });
 
     const nextPageNumber = screen.getByTestId("next-number");
     expect(nextPageNumber).not.toBeVisible();
   });
 
   test("Next Page Number visible", () => {
-    render(<Page pageNumber={2} maxPageNumber={3}/>);
+    act(() => {
+      render(<Page pageNumber={2} maxPageNumber={3}/>);
+    });
 
     const nextPageNumber = screen.getByText("3");
     expect(nextPageNumber).toBeVisible();
   });
 
   test("Previous Page arrow hidden", () => {
-    render(<Page pageNumber={1} maxPageNumber={2}/>);
+    act(() => {
+      render(<Page pageNumber={1} maxPageNumber={2}/>);
+    });
 
     const nextPageNumber = screen.getByAltText("previous arrow");
     expect(nextPageNumber).not.toBeVisible();
   });
 
   test("Previous Page arrow visible", () => {
-    render(<Page pageNumber={2} maxPageNumber={2}/>);
+    act(() => {
+      render(<Page pageNumber={2} maxPageNumber={2}/>);
+    });
 
     const nextPageNumber = screen.getByAltText("previous arrow");
     expect(nextPageNumber).toBeVisible();
   });
 
   test("Next Page arrow hidden", () => {
-    render(<Page pageNumber={2} maxPageNumber={2}/>);
+    act(() => {
+      render(<Page pageNumber={2} maxPageNumber={2}/>);
+    });
 
     const nextPageNumber = screen.getByAltText("next arrow");
     expect(nextPageNumber).not.toBeVisible();
   });
 
   test("Next Page arrow visible", () => {
-    render(<Page pageNumber={2} maxPageNumber={3}/>);
+    act(() => {
+      render(<Page pageNumber={2} maxPageNumber={3}/>);
+    });
 
     const nextPageNumber = screen.getByAltText("next arrow");
     expect(nextPageNumber).toBeVisible();
@@ -72,41 +91,50 @@ describe("Basic Rendering", () => {
 
 describe("Show the correct values", () => {
   test("Show correct previous number if page number more than 5", () => {
-    render(<Page pageNumber={6} />)
+    act(() => {
+      render(<Page pageNumber={6}/>);
+    });
 
     const previousPageNumber = screen.getByTestId("previous-number");
     expect(previousPageNumber.textContent).toBe("2");
-  })
+  });
 
 
   test("Show correct previous number if page number less than 5", () => {
-    render(<Page pageNumber={3} />)
+    act(() => {
+      render(<Page pageNumber={3}/>);
+    });
 
     const previousPageNumber = screen.getByTestId("previous-number");
     expect(previousPageNumber.textContent).toBe("1");
-  })
+  });
 
   test("Show correct next number if page number less than max page number by 5", () => {
-    render(<Page pageNumber={2} />)
+    act(() => {
+      render(<Page pageNumber={2}/>);
+    });
 
     const previousPageNumber = screen.getByTestId("next-number");
     expect(previousPageNumber.textContent).toBe("6");
-  })
+  });
 
   test("Show correct next number if page number less than max page number by 1", () => {
-    render(<Page pageNumber={3} maxPageNumber={4}/>)
+    act(() => {
+      render(<Page pageNumber={3} maxPageNumber={4}/>);
+    });
 
     const previousPageNumber = screen.getByTestId("next-number");
     expect(previousPageNumber.textContent).toBe("4");
-  })
-})
+  });
+});
 
 describe("Test incrementing and decrementing functions", () => {
   test("Function called on next page number click", () => {
 
     const nextPage = jest.fn();
-
-    render(<Page pageNumber={2} nextPage={nextPage}/>);
+    act(() => {
+      render(<Page pageNumber={2} nextPage={nextPage}/>);
+    });
 
     const nextPageNumber = screen.getByTestId("next-number");
     UserEvent.click(nextPageNumber);
@@ -116,10 +144,10 @@ describe("Test incrementing and decrementing functions", () => {
   });
 
   test("Function called on previous page number click", () => {
-
     const previousPage = jest.fn();
-
-    render(<Page pageNumber={2} previousPage={previousPage}/>);
+    act(() => {
+      render(<Page pageNumber={2} previousPage={previousPage}/>);
+    });
 
     const previousPageNumber = screen.getByTestId("previous-number");
     UserEvent.click(previousPageNumber);
@@ -129,10 +157,10 @@ describe("Test incrementing and decrementing functions", () => {
   });
 
   test("Function called on next arrow click", () => {
-
     const nextPage = jest.fn();
-
-    render(<Page pageNumber={2} nextPage={nextPage}/>);
+    act(() => {
+      render(<Page pageNumber={2} nextPage={nextPage}/>);
+    });
 
     const nextPageArrow = screen.getByAltText("next arrow");
     UserEvent.click(nextPageArrow);
@@ -142,10 +170,10 @@ describe("Test incrementing and decrementing functions", () => {
   });
 
   test("Function called on next arrow click", () => {
-
     const previousPage = jest.fn();
-
-    render(<Page pageNumber={2} previousPage={previousPage}/>);
+    act(() => {
+      render(<Page pageNumber={2} previousPage={previousPage}/>);
+    });
 
     const previousPageArrow = screen.getByAltText("previous arrow");
     UserEvent.click(previousPageArrow);
