@@ -1,9 +1,8 @@
 import React from "react";
-import { screen, render, getByText, waitForElementToBeRemoved, findByTestId } from "@testing-library/react";
+import { screen, render, waitForElementToBeRemoved, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PokemonCard from "./PokemonCard";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 const mockPokemon = {
   name: "bublasaur",
@@ -28,27 +27,24 @@ const mockPokemon = {
   }
 };
 
-afterEach(() => {
-  global.fetch.mockRestore();
+beforeEach(() => {
+  jest.spyOn(global, "fetch").mockImplementation(async () => {
+    return Promise.resolve({
+      json: () => Promise.resolve(mockPokemon)
+    });
+  });
 });
 
 describe("Renders all elements", () => {
-  beforeEach(() => {
-    jest.spyOn(global, "fetch").mockImplementation(async () => {
-      return Promise.resolve({
-        json: () => Promise.resolve(mockPokemon)
-      });
-    });
-  });
 
   test("Renders correctly", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard url={"mockURL"}/>);
     });
   });
 
   test("Contains pokemon image", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard url={"mockURL"}/>);
     });
 
@@ -57,7 +53,7 @@ describe("Renders all elements", () => {
   });
 
   test("Contains pokemon name", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard url={"mockURL"}/>);
     });
 
@@ -75,7 +71,7 @@ describe("Renders all elements", () => {
   });
 
   test("Contains details button", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard url={"mockURL"}/>);
     });
 
@@ -84,7 +80,7 @@ describe("Renders all elements", () => {
   });
 
   test("Contains add to cart button", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard url={"mockURL"}/>);
     });
 
@@ -95,30 +91,12 @@ describe("Renders all elements", () => {
 });
 
 describe("Test loading message", () => {
-  beforeEach(() => {
-    jest.spyOn(global, "fetch").mockImplementation(async () => {
-      return Promise.resolve({
-        json: () => Promise.resolve(mockPokemon)
-      });
-    });
-  });
-
-  test("Loading message shows", () => {
-    act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
-    });
-
+  test("Loading message shows while fetching data", async () => {
+    render(<PokemonCard url={"mockURL"}/>);
     const loadingMessage = screen.getByText("Loading...");
     expect(loadingMessage).toBeInTheDocument();
-  });
 
-  test("Loading message gone when information loaded", async () => {
-    await act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
-    });
-
-    const loadingMessage = screen.queryByText("Loading...");
-    expect(loadingMessage).not.toBeInTheDocument();
+    await waitForElementToBeRemoved(() => screen.getByText("Loading..."));
   });
 });
 
@@ -131,7 +109,7 @@ describe("Show Error loading data message on fetch failure", () => {
   });
 
   test("Show error message", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard url={"mockURL"}/>);
     });
 
@@ -140,7 +118,7 @@ describe("Show Error loading data message on fetch failure", () => {
   });
 
   test("Don't display buttons on error", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard url={"mockURL"}/>);
     });
 
@@ -150,17 +128,10 @@ describe("Show Error loading data message on fetch failure", () => {
 });
 
 describe("User input functionality", () => {
-  beforeEach(() => {
-    jest.spyOn(global, "fetch").mockImplementation(async () => {
-      return Promise.resolve({
-        json: () => Promise.resolve(mockPokemon)
-      });
-    });
-  });
 
   test("Submit function called", async () => {
     const mockSubmit = jest.fn();
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard handleSubmit={mockSubmit}/>);
     });
 
@@ -172,7 +143,7 @@ describe("User input functionality", () => {
   });
 
   test("Details function called", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard/>);
     });
 
@@ -184,7 +155,7 @@ describe("User input functionality", () => {
   });
 
   test("Change input the right amount", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard/>);
     });
 
@@ -195,7 +166,7 @@ describe("User input functionality", () => {
   });
 
   test("Input max limit", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard/>);
     });
 
@@ -205,7 +176,7 @@ describe("User input functionality", () => {
   });
 
   test("Input min limit", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard/>);
     });
 
@@ -215,7 +186,7 @@ describe("User input functionality", () => {
   });
 
   test("Input can't be empty", async () => {
-    await act(async () => {
+    await act(() => {
       render(<PokemonCard/>);
     });
 
