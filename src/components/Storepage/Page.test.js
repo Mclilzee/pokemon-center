@@ -15,21 +15,21 @@ describe("Basic Rendering", () => {
   test("Previous Page Number hidden", () => {
     render(<Page pageNumber={1}/>);
 
-    const previousPageNumber = screen.getByText("0");
+    const previousPageNumber = screen.getByTestId("previous-number");
     expect(previousPageNumber).not.toBeVisible();
   });
 
   test("Prevoius Page Number visible", () => {
     render(<Page pageNumber={2}/>);
 
-    const previousPageNumber = screen.getByText("1");
+    const previousPageNumber = screen.getByTestId("previous-number");
     expect(previousPageNumber).toBeVisible();
   });
 
   test("Next Page Number hidden", () => {
     render(<Page pageNumber={2} maxPageNumber={2}/>);
 
-    const nextPageNumber = screen.getByText("3");
+    const nextPageNumber = screen.getByTestId("next-number");
     expect(nextPageNumber).not.toBeVisible();
   });
 
@@ -70,6 +70,10 @@ describe("Basic Rendering", () => {
 
 });
 
+describe("Show currect values", () => {
+
+})
+
 describe("Test incrementing and decrementing functions", () => {
   test("Function called on next page number click", () => {
 
@@ -77,7 +81,7 @@ describe("Test incrementing and decrementing functions", () => {
 
     render(<Page pageNumber={2} nextPage={nextPage}/>);
 
-    const nextPageNumber = screen.getByText("3");
+    const nextPageNumber = screen.getByTestId("next-number");
     UserEvent.click(nextPageNumber);
     UserEvent.click(nextPageNumber);
 
@@ -90,7 +94,7 @@ describe("Test incrementing and decrementing functions", () => {
 
     render(<Page pageNumber={2} previousPage={previousPage}/>);
 
-    const previousPageNumber = screen.getByText("1");
+    const previousPageNumber = screen.getByTestId("previous-number");
     UserEvent.click(previousPageNumber);
     UserEvent.click(previousPageNumber);
 
