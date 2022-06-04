@@ -70,8 +70,35 @@ describe("Basic Rendering", () => {
 
 });
 
-describe("Show currect values", () => {
+describe("Show the correct values", () => {
+  test("Show correct previous number if page number more than 5", () => {
+    render(<Page pageNumber={6} />)
 
+    const previousPageNumber = screen.getByTestId("previous-number");
+    expect(previousPageNumber.textContent).toBe("2");
+  })
+
+
+  test("Show correct previous number if page number less than 5", () => {
+    render(<Page pageNumber={3} />)
+
+    const previousPageNumber = screen.getByTestId("previous-number");
+    expect(previousPageNumber.textContent).toBe("1");
+  })
+
+  test("Show correct next number if page number less than max page number by 5", () => {
+    render(<Page pageNumber={2} />)
+
+    const previousPageNumber = screen.getByTestId("next-number");
+    expect(previousPageNumber.textContent).toBe("6");
+  })
+
+  test("Show correct next number if page number less than max page number by 1", () => {
+    render(<Page pageNumber={3} maxPageNumber={4}/>)
+
+    const previousPageNumber = screen.getByTestId("next-number");
+    expect(previousPageNumber.textContent).toBe("4");
+  })
 })
 
 describe("Test incrementing and decrementing functions", () => {
