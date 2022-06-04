@@ -130,54 +130,54 @@ describe("Show the correct values", () => {
 describe("Test incrementing and decrementing functions", () => {
   test("Function called on next page number click", () => {
 
-    const nextPage = jest.fn();
+    const newPageNumber = jest.fn();
     act(() => {
-      render(<Page pageNumber={2} nextPage={nextPage}/>);
+      render(<Page pageNumber={2} newPageNumber={newPageNumber}/>);
     });
 
     const nextPageNumber = screen.getByTestId("next-number");
     UserEvent.click(nextPageNumber);
     UserEvent.click(nextPageNumber);
 
-    expect(nextPage).toBeCalledTimes(2);
+    expect(newPageNumber).toBeCalledTimes(2);
   });
 
   test("Function called on previous page number click", () => {
-    const previousPage = jest.fn();
+    const newPageNumber = jest.fn();
     act(() => {
-      render(<Page pageNumber={2} previousPage={previousPage}/>);
+      render(<Page pageNumber={2} newPageNumber={newPageNumber}/>);
     });
 
     const previousPageNumber = screen.getByTestId("previous-number");
     UserEvent.click(previousPageNumber);
     UserEvent.click(previousPageNumber);
 
-    expect(previousPage).toBeCalledTimes(2);
+    expect(newPageNumber).toBeCalledTimes(2);
   });
 
   test("Function called on next arrow click", () => {
-    const nextPage = jest.fn();
+    const newPageNumber = jest.fn();
     act(() => {
-      render(<Page pageNumber={2} nextPage={nextPage}/>);
+      render(<Page pageNumber={2} newPageNumber={newPageNumber}/>);
     });
 
     const nextPageArrow = screen.getByAltText("next arrow");
     UserEvent.click(nextPageArrow);
     UserEvent.click(nextPageArrow);
 
-    expect(nextPage).toBeCalledTimes(2);
+    expect(newPageNumber).toBeCalledTimes(2);
   });
 
   test("Function called on next arrow click", () => {
-    const previousPage = jest.fn();
+    const newPageNumber = jest.fn();
     act(() => {
-      render(<Page pageNumber={2} previousPage={previousPage}/>);
+      render(<Page pageNumber={2} newPageNumber={newPageNumber}/>);
     });
 
     const previousPageArrow = screen.getByAltText("previous arrow");
     UserEvent.click(previousPageArrow);
     UserEvent.click(previousPageArrow);
 
-    expect(previousPage).toBeCalledTimes(2);
+    expect(newPageNumber).toBeCalledTimes(2);
   });
 });

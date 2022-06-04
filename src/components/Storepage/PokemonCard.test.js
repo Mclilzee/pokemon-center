@@ -122,8 +122,8 @@ describe("Show Error loading data message on fetch failure", () => {
       render(<PokemonCard url={"mockURL"}/>);
     });
 
-    const container = await screen.findByTestId("card-test");
-    expect(container.children.length).toBe(1);
+    const container = await screen.queryByTestId("card-test");
+    expect(container).not.toBeInTheDocument();
   });
 });
 

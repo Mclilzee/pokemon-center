@@ -5,7 +5,7 @@ function PokemonCard(props) {
 
   const [pokemon, setPokemon] = React.useState(null);
   const [amount, setAmount] = React.useState(1);
-  const [error, setError] = React.useState(null);
+  const [errorMessage, setErrorMessage] = React.useState(null);
 
   React.useEffect(() => {
     async function getPokemonDetails() {
@@ -14,7 +14,7 @@ function PokemonCard(props) {
         const item = await data.json();
         setPokemon(item);
       } catch {
-        setError("Error loading information");
+        setErrorMessage("Error loading information");
       }
     }
 
@@ -55,32 +55,27 @@ function PokemonCard(props) {
     props.handleSubmit(pokemon.name, amount);
   }
 
-  function loadInformation() {
-    if (error !== null) {
-      return <h1 data-testid={"error-message"}>{error}</h1>;
-    } else {
-      return (
-        <>
-          {
-            pokemon ?
-              <Pokemon
-                name={capitalizeName()}
-                type={generateTypeString()}
-                img={pokemon.sprites.other["official-artwork"]["front_default"]}
-              /> : <h1>Loading...</h1>
-          }
-          <button className={"details-button"}>Details</button>
-          <form onSubmit={handleSubmit} className={"add-form"}>
-            <button className={"add-button"}>Add to Cart</button>
-            <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
-          </form>
-        </>);
-    }
+  if (errorMessage !== null) {
+    return <h1 data-testid={"error-message"}>{errorMessage}</h1>;
   }
 
   return (
     <div data-testid="card-test" className={"pokemon-card"}>
-      {loadInformation()}
+      {
+        pokemon ?
+          <Pokemon
+            name={capitalizeName()}
+            type={generateTypeString()}
+            img={pokemon.sprites.other["official-artwork"]["front_default"]}
+          />
+          :
+          <h1>Loading...</h1>
+      }
+      <button className={"details-button"}>Details</button>
+      <form onSubmit={handleSubmit} className={"add-form"}>
+        <button className={"add-button"}>Add to Cart</button>
+        <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
+      </form>
     </div>
   );
 }

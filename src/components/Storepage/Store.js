@@ -2,7 +2,6 @@ import React from "react";
 import PokemonCard from "./PokemonCard";
 import "./Store.css";
 import Page from "./Page";
-import { useParams } from "react-router-dom";
 
 function Store(props) {
 
@@ -12,8 +11,19 @@ function Store(props) {
   const [foundPokemons, setFoundPokemons] = React.useState([]);
   const [pokemonsArraySlice, setPokemonsArraySlice] = React.useState([]);
   const [maxPageNumber, setMaxPageNumber] = React.useState(57);
+  const [errorMessage, setErrorMessage] = React.useState(null);
 
   React.useEffect(() => {
+    async function fetchPokemons() {
+      try {
+        const pokemonData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
+        const pokemonItems = await pokemonData.json();
+        setPokemonsDB(pokemonItems.results);
+      } catch {
+        setErrorMessage("Error Loading Data, Check internet connection or try again later.");
+      }
+    }
+
     fetchPokemons();
   }, []);
 
@@ -27,36 +37,32 @@ function Store(props) {
   }, [foundPokemons]);
 
   React.useEffect(() => {
+    if (pageNumber === 0) {
+      return;
+    }
+
     const offset = (pageNumber - 1) * 20;
     const limit = offset + 20;
     setPokemonsArraySlice(foundPokemons.slice(offset, limit));
   }, [pageNumber, foundPokemons]);
 
   React.useEffect(() => {
+    if (pokemonsDB === undefined) {
+      return
+    }
+
     let found = [];
     const pattern = new RegExp(searchText, 'i');
 
-    if (searchText.length === 0) {
-      found = pokemonsDB;
-
-    } else {
-
-      for (let pokemon of pokemonsDB) {
-        if (pokemon.name.match(pattern)) {
-          found.push(pokemon);
-        }
+    for (let pokemon of pokemonsDB) {
+      if (pokemon.name.match(pattern)) {
+        found.push(pokemon);
       }
     }
 
     setFoundPokemons(found);
     setPageNumber(1);
   }, [searchText, pokemonsDB]);
-
-  async function fetchPokemons() {
-    const pokemonData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
-    const pokemonItems = await pokemonData.json();
-    setPokemonsDB(pokemonItems.results);
-  }
 
   function newPageNumber(pageNumber) {
     setPageNumber(pageNumber);
@@ -83,6 +89,10 @@ function Store(props) {
       return <h1 className={"loading"}>Not Found :(</h1>;
 
     }
+  }
+
+  if (errorMessage !== null) {
+    return <h1>{errorMessage}</h1>;
   }
 
   return (
