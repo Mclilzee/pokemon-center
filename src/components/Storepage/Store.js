@@ -58,18 +58,8 @@ function Store(props) {
     setPokemonsDB(pokemonItems.results);
   }
 
-  function previousPage() {
-    if (pageNumber === 1) {
-      return;
-    }
-    setPageNumber(prevState => prevState - 1);
-  }
-
-  function nextPage() {
-    if (pageNumber === 57) {
-      return;
-    }
-    setPageNumber(prevState => prevState + 1);
+  function newPageNumber(pageNumber) {
+    setPageNumber(pageNumber);
   }
 
   function onChangeSearchText(e) {
@@ -101,7 +91,7 @@ function Store(props) {
       <div className={"pokemon-cards-container"}>
         {pokemonCards.length > 0 ? pokemonCards : generateLoadingMessage()}
       </div>
-      <Page nextPage={nextPage} previousPage={previousPage} pageNumber={pageNumber} maxPageNumber={maxPageNumber}/>
+      <Page newPageNumber={newPageNumber} pageNumber={pageNumber} maxPageNumber={maxPageNumber}/>
     </div>
   );
 }
