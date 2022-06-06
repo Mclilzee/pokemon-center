@@ -5,12 +5,15 @@ function Homepage(props) {
 
   return (
     <div className={"homepage"}>
-      <h1>Pokémon Center</h1>
-      <h3>Welcome to Pokémon center traveler!</h3>
+      <img src={"./assets/images/homepage-pokemon-ball.png"} alt={"pokemon ball"}/>
+      <h1>Welcome to Pokémon center traveler!</h1>
       <p data-testid={"description"}>Pick and choose a pokemon to purchase, they are all free, buy as many as you would
         like without paying a cent.
         Isn't this a perfect world that you wish you live in?
       </p>
+      <p className={"warning-message"} data-testid={"warning-message"}>Warning: Before going to the store, make sure you
+        are on a wifi connection. The store will be constantly downloading images, especialy if you make use of the fast
+        rapid search function.</p>
     </div>
   );
 }

@@ -20,7 +20,7 @@ describe("Render Homepage correctly", () => {
 
   test("Homepage have two headings", () => {
     const headings = screen.getAllByRole("heading");
-    expect(headings.length).toBe(2);
+    expect(headings.length).toBe(1);
   });
 
   test("Homepage has paragraph", () => {

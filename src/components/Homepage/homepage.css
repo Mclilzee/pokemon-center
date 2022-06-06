@@ -3,10 +3,28 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 100px;
+  padding: 20px;
   text-align: center;
+  gap: 20px;
+}
+
+.homepage > img {
+
+  max-width: 100%;
 }
 
 .homepage > h1 {
-  font-size: min(2rem, 5vw);
+  font-size: min(2rem, 6vw);
+  margin: 0;
 }
+
+.homepage > p {
+  font-size: min(1.3rem, 4w);
+  margin: 0;
+}
+
+.homepage > .warning-message {
+  color: red;
+  font-weight: bold;
+}
+
