@@ -1,5 +1,5 @@
 import React from "react";
-import NotFoundError from "./components/NotFoundError/NotFoundError";
+import NotFoundError from "../NotFoundError/NotFoundError";
 import { useParams } from "react-router-dom";
 
 function PokemonDetails(props) {
@@ -10,7 +10,7 @@ function PokemonDetails(props) {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetch(`https://pokeapi.co/ap/v2/pokemon/${pokemonName}`);
+        const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
         const item = await data.json();
         setPokemonObject(item);
       } catch (e) {

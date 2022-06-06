@@ -1,0 +1,27 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  gap: 20px;
+}
+
+.error-container > img {
+  max-width: 100%;
+}
+
+.error-container > .error-number {
+  padding: 5vw;
+  font-size: min(5rem, 10vw);
+  border: red solid min(1rem, 2vw);
+  margin: 0;
+  border-radius: 50px;
+  font-family: Pokemon, serif;
+}
+
+.error-container > .error-message {
+  font-size: min(1.3rem, 4vw);
+  margin: 0;
+}
