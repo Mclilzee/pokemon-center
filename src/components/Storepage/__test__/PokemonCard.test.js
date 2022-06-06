@@ -1,8 +1,9 @@
 import React from "react";
 import { screen, render, waitForElementToBeRemoved, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import PokemonCard from "./PokemonCard";
+import PokemonCard from "../PokemonCard";
 import userEvent from "@testing-library/user-event";
+import Store from "../Store";
 
 const mockPokemon = {
   name: "bublasaur",
@@ -90,17 +91,25 @@ describe("Renders all elements", () => {
 
 });
 
-describe("Test loading message", () => {
-  test("Loading message shows while fetching data", async () => {
-    render(<PokemonCard url={"mockURL"}/>);
+describe("Loading handling", () => {
+  test("Loading message rendered while fetching", () => {
+    act(() => {
+      render(<Store/>);
+    });
     const loadingMessage = screen.getByText("Loading...");
     expect(loadingMessage).toBeInTheDocument();
+  });
 
-    await waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+  test("Loading message removed after fetching", () => {
+    act(() => {
+      render(<Store/>);
+    });
+
+    waitForElementToBeRemoved(() => screen.getByText("Loading..."));
   });
 });
 
-describe("Show Error loading data message on fetch failure", () => {
+describe("Error handling", () => {
 
   beforeEach(() => {
     jest.spyOn(global, "fetch").mockImplementation(async () => {
@@ -125,7 +134,8 @@ describe("Show Error loading data message on fetch failure", () => {
     const container = await screen.queryByTestId("card-test");
     expect(container).not.toBeInTheDocument();
   });
-});
+})
+;
 
 describe("User input functionality", () => {
 

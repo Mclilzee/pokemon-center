@@ -101,6 +101,6 @@
   cursor: pointer;
 }
 
-.page-number-container > *:hover {
+.page-number-container > *:not(.page-number):hover {
   transform: scale(110%);
 }

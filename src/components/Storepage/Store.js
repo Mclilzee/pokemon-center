@@ -47,10 +47,6 @@ function Store(props) {
   }, [pageNumber, foundPokemons]);
 
   React.useEffect(() => {
-    if (pokemonsDB === undefined) {
-      return
-    }
-
     let found = [];
     const pattern = new RegExp(searchText, 'i');
 
@@ -92,7 +88,7 @@ function Store(props) {
   }
 
   if (errorMessage !== null) {
-    return <h1>{errorMessage}</h1>;
+    return <h1 data-testid={"error-message"}>{errorMessage}</h1>;
   }
 
   return (

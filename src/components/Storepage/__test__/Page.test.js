@@ -2,7 +2,7 @@ import React from "react";
 import { screen, render, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import UserEvent from "@testing-library/user-event";
-import Page from "./Page";
+import Page from "../Page";
 
 describe("Basic Rendering", () => {
   test("Renders correctly", () => {
