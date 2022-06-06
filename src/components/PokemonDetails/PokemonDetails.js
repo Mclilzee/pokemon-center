@@ -3,7 +3,7 @@ import NotFoundError from "../NotFoundError/NotFoundError";
 import { useParams } from "react-router-dom";
 
 function PokemonDetails(props) {
-  const [pokemonObject, setPokemonObject] = React.useState({});
+  const [pokemon, setPokemon] = React.useState(null);
   const [error, setError] = React.useState(null);
   const {pokemonName} = useParams();
 
@@ -12,7 +12,7 @@ function PokemonDetails(props) {
       try {
         const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
         const item = await data.json();
-        setPokemonObject(item);
+        setPokemon(item);
       } catch (e) {
         setError(e);
       }
@@ -20,6 +20,8 @@ function PokemonDetails(props) {
 
     fetchData();
   }, [pokemonName]);
+
+  console.log(pokemon);
 
   if (error !== null) {
     if (error instanceof SyntaxError) {
@@ -29,8 +31,24 @@ function PokemonDetails(props) {
     }
   }
 
+  if (pokemon === null) {
+    return <h1>Loading...</h1>;
+  }
 
-  return <h1>{pokemonObject.name}</h1>;
+  return (
+    <div className={"pokemon-container"}>
+      <h1>{pokemon.name}</h1>
+      <img src={pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}/>
+      <ul>
+        <li>HP : {pokemon.stats[0].base_stat}</li>
+        <li>Attack : {pokemon.stats[1].base_stat}</li>
+        <li>Defense : {pokemon.stats[2].base_stat}</li>
+        <li>Special Attack : {pokemon.stats[3].base_stat}</li>
+        <li>Special Defense : {pokemon.stats[4].base_stat}</li>
+        <li>Speed : {pokemon.stats[5].base_stat}</li>
+      </ul>
+    </div>
+  );
 
 }
 
