@@ -5,7 +5,7 @@ function Homepage(props) {
 
   return (
     <div className={"homepage"}>
-      <img src={"./assets/images/homepage-pokemon-ball.png"} alt={"pokemon ball"}/>
+      <img src={"./assets/images/pokemon-ball.png"} alt={"pokemon ball"}/>
       <h1>Welcome to Pokémon center traveler!</h1>
       <p data-testid={"description"}>Pick and choose a pokemon to purchase, they are all free, buy as many as you would
         like without paying a cent.

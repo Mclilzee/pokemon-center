@@ -4,6 +4,15 @@ import "@testing-library/jest-dom";
 import PokemonCard from "../PokemonCard";
 import userEvent from "@testing-library/user-event";
 import Store from "../Store";
+import { BrowserRouter } from "react-router-dom";
+
+function MockPokemonCard(props) {
+  return (
+    <BrowserRouter>
+      <PokemonCard url={props.url} handleSubmit={props.handleSubmit}/>
+    </BrowserRouter>
+  );
+}
 
 const mockPokemon = {
   name: "bublasaur",
@@ -40,13 +49,13 @@ describe("Renders all elements", () => {
 
   test("Renders correctly", async () => {
     await act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
+      render(<MockPokemonCard url={"mockURL"}/>);
     });
   });
 
   test("Contains pokemon image", async () => {
     await act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
+      render(<MockPokemonCard url={"mockURL"}/>);
     });
 
     const pokemonImage = await screen.findByAltText("Bublasaur");
@@ -55,7 +64,7 @@ describe("Renders all elements", () => {
 
   test("Contains pokemon name", async () => {
     await act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
+      render(<MockPokemonCard url={"mockURL"}/>);
     });
 
     const pokemonName = await screen.findByText("Bublasaur");
@@ -64,7 +73,7 @@ describe("Renders all elements", () => {
 
   test("Contains pokemon type", async () => {
     await act(async () => {
-      render(<PokemonCard url={"mockURL"}/>);
+      render(<MockPokemonCard url={"mockURL"}/>);
     });
 
     const pokemonType = await screen.findByText("grass / poison");
@@ -73,7 +82,7 @@ describe("Renders all elements", () => {
 
   test("Contains details button", async () => {
     await act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
+      render(<MockPokemonCard url={"mockURL"}/>);
     });
 
     const detailsButton = screen.getByRole("button", {name: "Details"});
@@ -82,7 +91,7 @@ describe("Renders all elements", () => {
 
   test("Contains add to cart button", async () => {
     await act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
+      render(<MockPokemonCard url={"mockURL"}/>);
     });
 
     const addToCartButton = screen.getByRole("button", {name: "Add to Cart"});
@@ -119,7 +128,7 @@ describe("Error handling", () => {
 
   test("Show error message", async () => {
     await act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
+      render(<MockPokemonCard url={"mockURL"}/>);
     });
 
     const errorMessage = await screen.findByTestId("error-message");
@@ -128,7 +137,7 @@ describe("Error handling", () => {
 
   test("Don't display buttons on error", async () => {
     await act(() => {
-      render(<PokemonCard url={"mockURL"}/>);
+      render(<MockPokemonCard url={"mockURL"}/>);
     });
 
     const container = await screen.queryByTestId("card-test");
@@ -142,7 +151,7 @@ describe("User input functionality", () => {
   test("Submit function called", async () => {
     const mockSubmit = jest.fn();
     await act(() => {
-      render(<PokemonCard handleSubmit={mockSubmit}/>);
+      render(<MockPokemonCard handleSubmit={mockSubmit}/>);
     });
 
     const submitButton = screen.getByRole("button", {name: "Add to Cart"});
@@ -154,7 +163,7 @@ describe("User input functionality", () => {
 
   test("Details function called", async () => {
     await act(() => {
-      render(<PokemonCard/>);
+      render(<MockPokemonCard/>);
     });
 
     const detailsButton = screen.getByRole("button", {name: "Details"});
@@ -166,7 +175,7 @@ describe("User input functionality", () => {
 
   test("Change input the right amount", async () => {
     await act(() => {
-      render(<PokemonCard/>);
+      render(<MockPokemonCard/>);
     });
 
     const inputField = screen.getByDisplayValue("1");
@@ -177,7 +186,7 @@ describe("User input functionality", () => {
 
   test("Input max limit", async () => {
     await act(() => {
-      render(<PokemonCard/>);
+      render(<MockPokemonCard/>);
     });
 
     const inputField = screen.getByDisplayValue("1");
@@ -187,7 +196,7 @@ describe("User input functionality", () => {
 
   test("Input min limit", async () => {
     await act(() => {
-      render(<PokemonCard/>);
+      render(<MockPokemonCard/>);
     });
 
     const inputField = screen.getByDisplayValue("1");
@@ -197,7 +206,7 @@ describe("User input functionality", () => {
 
   test("Input can't be empty", async () => {
     await act(() => {
-      render(<PokemonCard/>);
+      render(<MockPokemonCard/>);
     });
 
     const inputField = screen.getByDisplayValue("1");

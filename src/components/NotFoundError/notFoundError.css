@@ -9,11 +9,11 @@
 }
 
 .error-container > img {
-  max-width: 100%;
+  max-width: 50%;
 }
 
 .error-container > .error-number {
-  padding: 5vw;
+  padding: min(30px, 5vw);
   font-size: min(5rem, 10vw);
   border: red solid min(1rem, 2vw);
   margin: 0;

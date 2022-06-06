@@ -1,5 +1,6 @@
 import React from "react";
 import Pokemon from "./Pokemon";
+import { Link } from "react-router-dom";
 
 function PokemonCard(props) {
 
@@ -59,19 +60,20 @@ function PokemonCard(props) {
     return <h1 data-testid={"error-message"}>{errorMessage}</h1>;
   }
 
+  if (pokemon === null) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <div data-testid="card-test" className={"pokemon-card"}>
-      {
-        pokemon ?
-          <Pokemon
-            name={capitalizeName()}
-            type={generateTypeString()}
-            img={pokemon.sprites.other["official-artwork"]["front_default"]}
-          />
-          :
-          <h1>Loading...</h1>
-      }
-      <button className={"details-button"}>Details</button>
+      <Pokemon
+        name={capitalizeName()}
+        type={generateTypeString()}
+        img={pokemon.sprites.other["official-artwork"]["front_default"]}
+      />
+      <Link to={"/pokemon/" + props.name}>
+        <button className={"details-button"}>Details</button>
+      </Link>
       <form onSubmit={handleSubmit} className={"add-form"}>
         <button className={"add-button"}>Add to Cart</button>
         <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>

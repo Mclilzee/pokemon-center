@@ -30,7 +30,7 @@ function PokemonDetails(props) {
   }
 
 
-  return <h1>{pokemonObject.cause}</h1>;
+  return <h1>{pokemonObject.name}</h1>;
 
 }
 
