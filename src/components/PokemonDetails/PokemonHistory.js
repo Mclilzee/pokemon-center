@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { capitalize } from "../../helperFunctions";
 
 function PokemonHistory(props) {
   const [history, setHistory] = React.useState(null);
@@ -18,6 +20,15 @@ function PokemonHistory(props) {
     fetchData();
   });
 
+  function generateEvolutionLink() {
+    if (history.evolves_from_species === null) {
+      return "None";
+    }
+
+    const evolvesFrom = history.evolves_from_species.name;
+    return <Link to={`/pokemon/${evolvesFrom}`}>{capitalize(evolvesFrom)}< /Link>;
+  }
+
   if (error !== null) {
     return;
   }
@@ -27,8 +38,12 @@ function PokemonHistory(props) {
   }
 
   return (
-    <h2>{history.flavor_text_entries[0].flavor_text}</h2>
-  )
+    <div className={"pokemon-history"}>
+      <h2 className={"flavor-message"}>{history.flavor_text_entries[0].flavor_text}</h2>
+      <h3 className={"habitat-message"}>Habitat : {capitalize(history.habitat.name)}</h3>
+      <h3 className={"evolve-message"}>Evolves from : {generateEvolutionLink()}</h3>
+    </div>
+  );
 }
 
 export default PokemonHistory;

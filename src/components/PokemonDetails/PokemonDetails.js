@@ -72,10 +72,10 @@ function PokemonDetails(props) {
     <div className={"pokemon-container"}>
       <div className={"pokemon-view"}>
         <h1>{capitalize(pokemon.name)}</h1>
-        <img src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
         <img src={pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}/>
         <PokemonHistory url={pokemon.species.url}/>
       </div>
+      <img src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
       <ul>
         {stats}
       </ul>
