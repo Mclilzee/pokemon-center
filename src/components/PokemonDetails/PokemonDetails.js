@@ -1,6 +1,7 @@
 import React from "react";
 import NotFoundError from "../NotFoundError/NotFoundError";
 import { useParams } from "react-router-dom";
+import Ability from "./Ability";
 
 function PokemonDetails(props) {
   const [pokemon, setPokemon] = React.useState(null);
@@ -21,7 +22,9 @@ function PokemonDetails(props) {
     fetchData();
   }, [pokemonName]);
 
-  console.log(pokemon);
+  function capitalizeName() {
+    return pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+  }
 
   if (error !== null) {
     if (error instanceof SyntaxError) {
@@ -35,9 +38,13 @@ function PokemonDetails(props) {
     return <h1>Loading...</h1>;
   }
 
+  const abilities = pokemon.abilities.map(item => {
+    return <Ability name={item.ability.name} key={item.ability.url} hidden={item.is_hidden}/>;
+  });
+
   return (
     <div className={"pokemon-container"}>
-      <h1>{pokemon.name}</h1>
+      <h1>{capitalizeName()}</h1>
       <img src={pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}/>
       <ul>
         <li>HP : {pokemon.stats[0].base_stat}</li>
@@ -47,6 +54,7 @@ function PokemonDetails(props) {
         <li>Special Defense : {pokemon.stats[4].base_stat}</li>
         <li>Speed : {pokemon.stats[5].base_stat}</li>
       </ul>
+      {abilities}
     </div>
   );
 
