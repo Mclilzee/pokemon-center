@@ -15,7 +15,7 @@ describe("Basic rendering", () => {
       render(<Ability name={"basic attack"}/>);
     });
 
-    const ability = screen.getByText("basic attack");
+    const ability = screen.getByText("Basic attack");
     expect(ability).toBeInTheDocument();
   });
 
