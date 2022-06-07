@@ -25,6 +25,24 @@ function PokemonDetails(props) {
     fetchData();
   }, [pokemonName]);
 
+  function generateWeightString() {
+    const weightInKilo = pokemon.weight / 10;
+    if (weightInKilo < 1) {
+      return weightInKilo * 100 + "g";
+    }
+
+    return weightInKilo + "kg";
+  }
+
+  function generateHeightString() {
+    const heightInMeter = pokemon.height / 10;
+    if (heightInMeter < 1) {
+      return heightInMeter * 100 + "cm";
+    }
+
+    return heightInMeter + "m";
+  }
+
   if (error !== null) {
     if (error instanceof SyntaxError) {
       return <NotFoundError/>;
@@ -38,7 +56,7 @@ function PokemonDetails(props) {
   }
 
   const stats = pokemon.stats.map(item => {
-    return <Stat name={capitalize(item.stat.name)} number={item.base_stat}/>;
+    return <Stat key={item.stat.name} name={capitalize(item.stat.name)} number={item.base_stat}/>;
   });
 
   const abilities = pokemon.abilities.map(item => {
@@ -63,6 +81,8 @@ function PokemonDetails(props) {
       <ul className={"type-container"}>
         {types}
       </ul>
+      <p className={"height"}>Height: {generateHeightString()}</p>
+      <p className={"weight"}>Weight: {generateWeightString()}</p>
     </div>
   );
 
