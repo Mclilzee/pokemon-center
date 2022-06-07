@@ -26,11 +26,11 @@ function PokemonHistory(props) {
     }
 
     const evolvesFrom = history.evolves_from_species.name;
-    return <Link to={`/pokemon/${evolvesFrom}`}>{capitalize(evolvesFrom)}< /Link>;
+    return <Link className={"evolve-link"} to={`/pokemon/${evolvesFrom}`}>{capitalize(evolvesFrom)}< /Link>;
   }
 
   if (error !== null) {
-    return;
+    return <div data-testid={"error-message"}></div>
   }
 
   if (history === null) {
@@ -41,7 +41,7 @@ function PokemonHistory(props) {
     <div className={"pokemon-history"}>
       <h2 className={"flavor-message"}>{history.flavor_text_entries[0].flavor_text}</h2>
       <h3 className={"habitat-message"}>Habitat : {capitalize(history.habitat.name)}</h3>
-      <h3 className={"evolve-message"}>Evolves from : {generateEvolutionLink()}</h3>
+      <h3 data-testid={"evolution-test"} className={"evolve-message"}>Evolves from : {generateEvolutionLink()}</h3>
     </div>
   );
 }

@@ -47,7 +47,7 @@ describe("Rendering basics", () => {
       render(<Store/>);
     });
 
-    const inputField = screen.getByPlaceholderText("Search Pokemon Name");
+    const inputField = await screen.findByPlaceholderText("Search Pokemon Name");
     expect(inputField).toBeInTheDocument();
   });
 
@@ -65,7 +65,7 @@ describe("Rendering basics", () => {
       render(<Store/>);
     });
 
-    const pokemonCards = screen.getAllByTestId("pokemon-card");
+    const pokemonCards = await screen.findAllByTestId("pokemon-card");
     expect(pokemonCards.length).toBe(3);
   });
 
@@ -74,7 +74,7 @@ describe("Rendering basics", () => {
       render(<Store/>);
     });
 
-    const pokemonCardURLs = screen.getAllByText(/.com$/i);
+    const pokemonCardURLs = await screen.findAllByText(/.com$/i);
     expect(pokemonCardURLs.length).toBe(3);
   });
 
@@ -83,7 +83,7 @@ describe("Rendering basics", () => {
       render(<Store/>);
     });
 
-    const pageNumber = screen.getByTestId("page-test");
+    const pageNumber = await screen.findByTestId("page-test");
     expect(pageNumber.textContent).toBe("1");
   });
 
@@ -95,7 +95,7 @@ describe("Test functionality", () => {
       render(<Store/>);
     });
 
-    const inputField = screen.getByPlaceholderText("Search Pokemon Name");
+    const inputField = await screen.findByPlaceholderText("Search Pokemon Name");
     userEvent.type(inputField, "pikachu");
     expect(inputField.value).toBe("pikachu");
   });
@@ -105,10 +105,10 @@ describe("Test functionality", () => {
       render(<Store/>);
     });
 
-    const inputField = screen.getByPlaceholderText("Search Pokemon Name");
+    const inputField = await screen.findByPlaceholderText("Search Pokemon Name");
     userEvent.type(inputField, "l");
 
-    const pokemonCards = screen.getAllByTestId("pokemon-card");
+    const pokemonCards = await screen.findAllByTestId("pokemon-card");
     expect(pokemonCards.length).toBe(2);
   });
 
@@ -117,19 +117,20 @@ describe("Test functionality", () => {
       render(<Store/>);
     });
 
-    const inputField = screen.getByPlaceholderText("Search Pokemon Name");
+    const inputField = await screen.findByPlaceholderText("Search Pokemon Name");
     userEvent.type(inputField, "char");
 
-    const pokemonURL = screen.getByTestId("pokemon-card");
+    const pokemonURL = await screen.findByTestId("pokemon-card");
     expect(pokemonURL.textContent).toBe("charizard.com");
   });
 });
 
-describe("Loading handling", () => {
+describe("Loading handling",  () => {
   test("Loading message rendered while fetching", () => {
-    act(() => {
+   act(() => {
       render(<Store/>);
     });
+
     const loadingMessage = screen.getByText("Loading...");
     expect(loadingMessage).toBeInTheDocument();
   });
@@ -145,7 +146,7 @@ describe("Loading handling", () => {
 
 describe("Error handling", () => {
   beforeEach(() => {
-    jest.spyOn(global, "fetch").mockImplementation(async() => {
+    jest.spyOn(global, "fetch").mockImplementation(async () => {
       return Promise.reject();
     });
   });
@@ -155,7 +156,7 @@ describe("Error handling", () => {
       render(<Store/>);
     });
 
-    const errorMessage = screen.getByTestId("error-message");
+    const errorMessage = await screen.findByTestId("error-message");
     expect(errorMessage).toBeInTheDocument();
   });
 

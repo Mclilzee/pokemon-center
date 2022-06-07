@@ -85,7 +85,7 @@ describe("Renders all elements", () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
 
-    const detailsButton = screen.getByRole("button", {name: "Details"});
+    const detailsButton = await screen.findByRole("button", {name: "Details"});
     expect(detailsButton).toBeInTheDocument();
   });
 
@@ -94,7 +94,7 @@ describe("Renders all elements", () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
 
-    const addToCartButton = screen.getByRole("button", {name: "Add to Cart"});
+    const addToCartButton = await screen.findByRole("button", {name: "Add to Cart"});
     expect(addToCartButton).toBeInTheDocument();
   });
 
@@ -105,6 +105,7 @@ describe("Loading handling", () => {
     act(() => {
       render(<Store/>);
     });
+
     const loadingMessage = screen.getByText("Loading...");
     expect(loadingMessage).toBeInTheDocument();
   });
@@ -154,7 +155,7 @@ describe("User input functionality", () => {
       render(<MockPokemonCard handleSubmit={mockSubmit}/>);
     });
 
-    const submitButton = screen.getByRole("button", {name: "Add to Cart"});
+    const submitButton = await screen.findByRole("button", {name: "Add to Cart"});
 
     userEvent.click(submitButton);
     userEvent.click(submitButton);
@@ -166,7 +167,7 @@ describe("User input functionality", () => {
       render(<MockPokemonCard/>);
     });
 
-    const detailsButton = screen.getByRole("button", {name: "Details"});
+    const detailsButton = await screen.findByRole("button", {name: "Details"});
 
     userEvent.click(detailsButton);
     userEvent.click(detailsButton);
@@ -178,7 +179,7 @@ describe("User input functionality", () => {
       render(<MockPokemonCard/>);
     });
 
-    const inputField = screen.getByDisplayValue("1");
+    const inputField = await screen.findByDisplayValue("1");
     userEvent.clear(inputField);
     userEvent.type(inputField, "2");
     expect(inputField.value).toBe("2");
@@ -189,7 +190,7 @@ describe("User input functionality", () => {
       render(<MockPokemonCard/>);
     });
 
-    const inputField = screen.getByDisplayValue("1");
+    const inputField =  await screen.findByDisplayValue("1");
     userEvent.type(inputField, "9999");
     expect(inputField.value).toBe("100");
   });
@@ -199,7 +200,7 @@ describe("User input functionality", () => {
       render(<MockPokemonCard/>);
     });
 
-    const inputField = screen.getByDisplayValue("1");
+    const inputField = await screen.findByDisplayValue("1");
     userEvent.type(inputField, "-20");
     expect(inputField.value).toBe("1");
   });
@@ -209,7 +210,7 @@ describe("User input functionality", () => {
       render(<MockPokemonCard/>);
     });
 
-    const inputField = screen.getByDisplayValue("1");
+    const inputField = await screen.findByDisplayValue("1");
     userEvent.clear(inputField);
     expect(inputField.value).toBe("1");
   });
