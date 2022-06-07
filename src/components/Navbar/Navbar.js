@@ -11,7 +11,9 @@ export default function Navbar(props) {
       <Link to={"/store"}>
         <h2>Store</h2>
       </Link>
-      <h2>Cart</h2>
+      <Link to={"/cart"}>
+        <h2>Cart</h2>
+      </Link>
     </nav>
   );
 }

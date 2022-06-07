@@ -5,8 +5,7 @@ import Navbar from "../Navbar";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter, Router } from "react-router-dom";
 
-describe("Navbar renders correctly", () => {
-
+describe("Basic Rendering", () => {
   beforeEach(() => {
     act(() => {
       render(
@@ -17,21 +16,36 @@ describe("Navbar renders correctly", () => {
     });
   });
 
-  test("Navbar renders", () => {
+  test("Renders", () => {
   });
 
-  test("Navbar home link in document", () => {
-    const homepageLink = screen.getByText("Home");
+  test("Home link in document", () => {
+    const homepageLink = screen.getByRole("link", {name: "Home"});
     expect(homepageLink).toBeInTheDocument();
   });
 
-  test("Navbar store link in document", () => {
-    const homepageLink = screen.getByText("Cart");
-    expect(homepageLink).toBeInTheDocument();
+  test("Home link contains correct href", () => {
+    const homepageLink = screen.getByRole("link", {name: "Home"});
+    expect(homepageLink).toHaveAttribute("href", "/");
   });
 
-  test("Navbar cart link in document", () => {
-    const homepageLink = screen.getByText("Store");
-    expect(homepageLink).toBeInTheDocument();
+  test("Store link in document", () => {
+    const storeLink = screen.getByRole("link", {name: "Store"});
+    expect(storeLink).toBeInTheDocument();
+  });
+
+  test("Store link contains correct href", () => {
+    const storeLink = screen.getByRole("link", {name: "Store"});
+    expect(storeLink).toHaveAttribute("href", "/store");
+  });
+
+  test("Cart link in document", () => {
+    const cartLink = screen.getByRole("link", {name: "Cart"});
+    expect(cartLink).toBeInTheDocument();
+  });
+
+  test("Cart link contains correct href", () => {
+    const cartLink = screen.getByRole("link", {name: "Cart"});
+    expect(cartLink).toHaveAttribute("href", "/cart");
   });
 });
