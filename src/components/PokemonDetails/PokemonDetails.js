@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Ability from "./Ability";
 import Type from "./Type";
 import Stat from "./Stat";
+import PokemonHistory from "./PokemonHistory";
 
 function PokemonDetails(props) {
   const [pokemon, setPokemon] = React.useState(null);
@@ -69,9 +70,12 @@ function PokemonDetails(props) {
 
   return (
     <div className={"pokemon-container"}>
-      <h1>{capitalize(pokemon.name)}</h1>
-      <img src={pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}/>
-      <img src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
+      <div className={"pokemon-view"}>
+        <h1>{capitalize(pokemon.name)}</h1>
+        <img src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
+        <img src={pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}/>
+        <PokemonHistory url={pokemon.species.url}/>
+      </div>
       <ul>
         {stats}
       </ul>
