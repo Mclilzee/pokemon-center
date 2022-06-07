@@ -2,6 +2,7 @@ import React from "react";
 import NotFoundError from "../NotFoundError/NotFoundError";
 import { useParams } from "react-router-dom";
 import Ability from "./Ability";
+import Type from "./Type";
 
 function PokemonDetails(props) {
   const [pokemon, setPokemon] = React.useState(null);
@@ -42,10 +43,15 @@ function PokemonDetails(props) {
     return <Ability name={item.ability.name} key={item.ability.url} hidden={item.is_hidden}/>;
   });
 
+  const types = pokemon.types.map(item => {
+    return <Type name={item.type.name} key={item.type.name}/>;
+  });
+
   return (
     <div className={"pokemon-container"}>
       <h1>{capitalizeName()}</h1>
       <img src={pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}/>
+      <img src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
       <ul>
         <li>HP : {pokemon.stats[0].base_stat}</li>
         <li>Attack : {pokemon.stats[1].base_stat}</li>
@@ -54,7 +60,12 @@ function PokemonDetails(props) {
         <li>Special Defense : {pokemon.stats[4].base_stat}</li>
         <li>Speed : {pokemon.stats[5].base_stat}</li>
       </ul>
-      {abilities}
+      <div className={"ability-container"}>
+        {abilities}
+      </div>
+      <div className={"type-container"}>
+        {types}
+      </div>
     </div>
   );
 
