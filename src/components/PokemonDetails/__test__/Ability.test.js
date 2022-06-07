@@ -12,7 +12,7 @@ describe("Basic rendering", () => {
 
   test("Show correct ability name", () => {
     act(() => {
-      render(<Ability name={"basic attack"}/>);
+      render(<Ability name={"Basic attack"}/>);
     });
 
     const ability = screen.getByText("Basic attack");

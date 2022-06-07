@@ -1,9 +1,10 @@
 import React from "react";
+import { capitalize } from "../../helperFunctions";
 
 function Type(props) {
 
   return (
-    <h3 className={"type"}>{props.name}</h3>
+    <li className={`type ${props.name}`}>{capitalize(props.name)}</li>
   );
 }
 
