@@ -68,11 +68,14 @@ function PokemonDetails(props) {
     return <Type name={item.type.name} key={item.type.name}/>;
   });
 
+  const imageLink = pokemon.sprites.other["official-artwork"].front_default ?
+    pokemon.sprites.other["official-artwork"].front_default : "../assets/images/pokemon-ball.png";
+
   return (
     <div className={"pokemon-container"}>
       <div className={"pokemon-view"}>
         <h1>{capitalize(pokemon.name)}</h1>
-        <img src={pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}/>
+        <img src={imageLink} alt={pokemon.name}/>
         <PokemonHistory url={pokemon.species.url}/>
       </div>
       <img src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
