@@ -71,7 +71,7 @@ function PokemonCard(props) {
         type={generateTypeString()}
         img={pokemon.sprites.other["official-artwork"]["front_default"]}
       />
-      <Link to={"/pokemon/" + props.name}>
+      <Link to={"/pokemon/" + pokemon.name}>
         <button className={"details-button"}>Details</button>
       </Link>
       <form onSubmit={handleSubmit} className={"add-form"}>

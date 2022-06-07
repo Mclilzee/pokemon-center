@@ -37,13 +37,13 @@ jest.mock("../Page", () => (props) => {
 
 describe("Rendering basics", () => {
   test("Component renders", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
   });
 
   test("Input field render after loading", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -61,7 +61,7 @@ describe("Rendering basics", () => {
   });
 
   test("Pokemon Cards loaded", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -70,7 +70,7 @@ describe("Rendering basics", () => {
   });
 
   test("Pokemon URL passed to Pokemon Cards", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -79,7 +79,7 @@ describe("Rendering basics", () => {
   });
 
   test("Expect page number to be correct", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -91,7 +91,7 @@ describe("Rendering basics", () => {
 
 describe("Test functionality", () => {
   test("Input field changes", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -101,7 +101,7 @@ describe("Test functionality", () => {
   });
 
   test("Show appropriate number of pokemons on search", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -113,7 +113,7 @@ describe("Test functionality", () => {
   });
 
   test("Show the right pokemon fetch URL on search", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -125,9 +125,9 @@ describe("Test functionality", () => {
   });
 });
 
-describe("Loading handling",  () => {
+describe("Loading handling", () => {
   test("Loading message rendered while fetching", () => {
-   act(() => {
+    act(() => {
       render(<Store/>);
     });
 
@@ -152,7 +152,7 @@ describe("Error handling", () => {
   });
 
   test("Show error message on fetch failure", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -161,7 +161,7 @@ describe("Error handling", () => {
   });
 
   test("Do not show input field on error", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -170,7 +170,7 @@ describe("Error handling", () => {
   });
 
   test("Do not show pokemon cards on error", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 
@@ -179,7 +179,7 @@ describe("Error handling", () => {
   });
 
   test("Do not show page number on error", async () => {
-    await act(() => {
+    await act(async () => {
       render(<Store/>);
     });
 

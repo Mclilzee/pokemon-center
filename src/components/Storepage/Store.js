@@ -72,7 +72,6 @@ function Store(props) {
     return (
       <PokemonCard
         key={pokemon.name}
-        name={pokemon.name}
         url={pokemon.url}
         handleSubmit={props.handleSubmit}
       />

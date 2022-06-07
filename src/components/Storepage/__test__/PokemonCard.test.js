@@ -9,13 +9,13 @@ import { BrowserRouter } from "react-router-dom";
 function MockPokemonCard(props) {
   return (
     <BrowserRouter>
-      <PokemonCard url={props.url} handleSubmit={props.handleSubmit}/>
+      <PokemonCard name={props.name} url={props.url} handleSubmit={props.handleSubmit}/>
     </BrowserRouter>
   );
 }
 
 const mockPokemon = {
-  name: "bublasaur",
+  name: "bulbasaur",
   types: [
     {
       type: {
@@ -48,26 +48,26 @@ beforeEach(() => {
 describe("Renders all elements", () => {
 
   test("Renders correctly", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
   });
 
   test("Contains pokemon image", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
 
-    const pokemonImage = await screen.findByAltText("Bublasaur");
+    const pokemonImage = await screen.findByAltText("Bulbasaur");
     expect(pokemonImage).toBeInTheDocument();
   });
 
   test("Contains pokemon name", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
 
-    const pokemonName = await screen.findByText("Bublasaur");
+    const pokemonName = await screen.findByText("Bulbasaur");
     expect(pokemonName).toBeInTheDocument();
   });
 
@@ -81,7 +81,7 @@ describe("Renders all elements", () => {
   });
 
   test("Contains details button", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
 
@@ -90,7 +90,7 @@ describe("Renders all elements", () => {
   });
 
   test("Contains add to cart button", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
 
@@ -128,7 +128,7 @@ describe("Error handling", () => {
   });
 
   test("Show error message", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
 
@@ -137,7 +137,7 @@ describe("Error handling", () => {
   });
 
   test("Don't display buttons on error", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard url={"mockURL"}/>);
     });
 
@@ -151,7 +151,7 @@ describe("User input functionality", () => {
 
   test("Submit function called", async () => {
     const mockSubmit = jest.fn();
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard handleSubmit={mockSubmit}/>);
     });
 
@@ -163,19 +163,16 @@ describe("User input functionality", () => {
   });
 
   test("Details function called", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard/>);
     });
 
     const detailsButton = await screen.findByRole("button", {name: "Details"});
-
-    userEvent.click(detailsButton);
-    userEvent.click(detailsButton);
-    // TODO
+    expect(detailsButton.closest("a")).toHaveAttribute("href", "/pokemon/bulbasaur");
   });
 
   test("Change input the right amount", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard/>);
     });
 
@@ -186,17 +183,17 @@ describe("User input functionality", () => {
   });
 
   test("Input max limit", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard/>);
     });
 
-    const inputField =  await screen.findByDisplayValue("1");
+    const inputField = await screen.findByDisplayValue("1");
     userEvent.type(inputField, "9999");
     expect(inputField.value).toBe("100");
   });
 
   test("Input min limit", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard/>);
     });
 
@@ -206,7 +203,7 @@ describe("User input functionality", () => {
   });
 
   test("Input can't be empty", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockPokemonCard/>);
     });
 

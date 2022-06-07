@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import { act, render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PokemonHistory from "../PokemonHistory";
 import { BrowserRouter } from "react-router-dom";
@@ -37,13 +37,13 @@ beforeEach(() => {
 
 describe("Basic rendering", () => {
   test("Renders", async () => {
-    await act(() => {
+    await act(async() => {
       render(<MockHistory/>);
     });
   });
 
   test("Flavor text to be in document", async () => {
-    await act(() => {
+    await act(async() => {
       render(<MockHistory/>);
     });
 
@@ -52,7 +52,7 @@ describe("Basic rendering", () => {
   });
 
   test("Habitat text to be in document", async () => {
-    await act(() => {
+    await act(async() => {
       render(<MockHistory/>);
     });
 
@@ -61,7 +61,7 @@ describe("Basic rendering", () => {
   });
 
   test("Evolution link to be in document", async () => {
-    await act(() => {
+    await act(async() => {
       render(<MockHistory/>);
     });
 
@@ -70,12 +70,12 @@ describe("Basic rendering", () => {
   });
 
   test("Evolution link to have correct href", async () => {
-    await act(() => {
+    await act(async() => {
       render(<MockHistory/>);
     });
 
     const evolutionLink = await screen.findByRole("link", {name: /ivysaur/i});
-    expect(evolutionLink.href).toMatch(/pokemon\/ivysaur$/);
+    expect(evolutionLink).toHaveAttribute("href", "/pokemon/ivysaur");
   });
 
   test("There is no link if no evolution happened", async () => {
@@ -86,7 +86,7 @@ describe("Basic rendering", () => {
       });
     });
 
-    await act(() => {
+    await act(async() => {
       render(<MockHistory/>);
     });
 
@@ -102,7 +102,7 @@ describe("Basic rendering", () => {
       });
     });
 
-    await act(() => {
+    await act(async() => {
       render(<MockHistory/>);
     });
 
@@ -139,7 +139,7 @@ describe("Error handling", () => {
   });
 
   test("Error message shown on promise reject", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockHistory/>);
     });
 
@@ -148,7 +148,7 @@ describe("Error handling", () => {
   });
 
   test("Flavor text not to be in document", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockHistory/>);
     });
 
@@ -157,7 +157,7 @@ describe("Error handling", () => {
   });
 
   test("Habitat text not to be in document", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockHistory/>);
     });
 
@@ -166,7 +166,7 @@ describe("Error handling", () => {
   });
 
   test("Evolution link not to be in document", async () => {
-    await act(() => {
+    await act(async () => {
       render(<MockHistory/>);
     });
 
