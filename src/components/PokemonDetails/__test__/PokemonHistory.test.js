@@ -36,50 +36,49 @@ beforeEach(() => {
 });
 
 describe("Basic rendering", () => {
-  test("Renders correctly", async () => {
+  test("Renders", async () => {
     await act(() => {
       render(<MockHistory/>);
     });
   });
 
-  test("Flavor message to be in document", async () => {
+  test("Flavor text to be in document", async () => {
     await act(() => {
       render(<MockHistory/>);
     });
 
-    const flavorMessage = screen.getByText("The plant blooms.");
-    expect(flavorMessage).toBeInTheDocument();
+    const flavorText = await screen.findByText("The plant blooms.");
+    expect(flavorText).toBeInTheDocument();
   });
 
-  test("Habitat message to be in document", async () => {
+  test("Habitat text to be in document", async () => {
     await act(() => {
       render(<MockHistory/>);
     });
 
-    const habitatMessage = screen.getByText(/grassland/i);
-    expect(habitatMessage).toBeInTheDocument();
+    const habitatText = await screen.findByText(/grassland/i);
+    expect(habitatText).toBeInTheDocument();
   });
 
-  test("Evolves message to be in document", async () => {
+  test("Evolution link to be in document", async () => {
     await act(() => {
       render(<MockHistory/>);
     });
 
-    const evolvesMessage = screen.getByText(/ivysaur/i);
-    expect(evolvesMessage).toBeInTheDocument();
+    const evolutionLink = await screen.findByRole("link", {name: /ivysaur/i});
+    expect(evolutionLink).toBeInTheDocument();
   });
 
-  test("Loading message to show while fetching data", () => {
-    act(() => {
+  test("Evolution link to have correct href", async () => {
+    await act(() => {
       render(<MockHistory/>);
     });
 
-    const loadingMessage = screen.getByText("Loading...");
-    expect(loadingMessage).toBeInTheDocument();
-    waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+    const evolutionLink = await screen.findByRole("link", {name: /ivysaur/i});
+    expect(evolutionLink.href).toMatch(/pokemon\/ivysaur$/);
   });
 
-  test("There is no link if no evolution happend", async () => {
+  test("There is no link if no evolution happened", async () => {
     const alteredHistory = {...pokemonHistory, evolves_from_species: null};
     jest.spyOn(global, "fetch").mockImplementation(() => {
       return Promise.resolve({
@@ -107,12 +106,32 @@ describe("Basic rendering", () => {
       render(<MockHistory/>);
     });
 
-    const linkElement = screen.getByTestId("evolution-test");
+    const linkElement = await screen.findByTestId("evolution-test");
     expect(linkElement.textContent).toMatch(/none/i);
   });
 });
 
-describe("Test error handling situation", () => {
+describe("Loading handling", () => {
+  test("Loading message to show while fetching data", () => {
+    act(() => {
+      render(<MockHistory/>);
+    });
+
+    const loadingMessage = screen.getByText("Loading...");
+    expect(loadingMessage).toBeInTheDocument();
+    waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+  });
+
+  test("Loading message to be removed after fetching data", () => {
+    act(() => {
+      render(<MockHistory/>);
+    });
+
+    waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+  });
+});
+
+describe("Error handling", () => {
   beforeEach(() => {
     jest.spyOn(global, "fetch").mockImplementation(() => {
       return Promise.reject();
@@ -126,5 +145,32 @@ describe("Test error handling situation", () => {
 
     const errorElement = await screen.findByTestId("error-message");
     expect(errorElement).toBeInTheDocument();
+  });
+
+  test("Flavor text not to be in document", async () => {
+    await act(() => {
+      render(<MockHistory/>);
+    });
+
+    const flavorText = screen.queryByText("The plant blooms.");
+    expect(flavorText).not.toBeInTheDocument();
+  });
+
+  test("Habitat text not to be in document", async () => {
+    await act(() => {
+      render(<MockHistory/>);
+    });
+
+    const habitatText = screen.queryByText(/grassland/i);
+    expect(habitatText).not.toBeInTheDocument();
+  });
+
+  test("Evolution link not to be in document", async () => {
+    await act(() => {
+      render(<MockHistory/>);
+    });
+
+    const evolutionLink = screen.queryByRole("link", {name: /ivysaur/i});
+    expect(evolutionLink).not.toBeInTheDocument();
   });
 });
