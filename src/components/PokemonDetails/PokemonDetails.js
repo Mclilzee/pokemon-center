@@ -61,7 +61,7 @@ function PokemonDetails(props) {
   });
 
   const abilities = pokemon.abilities.map(item => {
-    return <Ability name={capitalize(item.ability.name)} key={item.ability.url} hidden={item.is_hidden}/>;
+    return <Ability name={capitalize(item.ability.name)} key={item.ability.name} hidden={item.is_hidden}/>;
   });
 
   const types = pokemon.types.map(item => {
@@ -75,7 +75,7 @@ function PokemonDetails(props) {
     <div className={"pokemon-container"}>
       <div className={"pokemon-view"}>
         <h1>{capitalize(pokemon.name)}</h1>
-        <img src={imageLink} alt={pokemon.name}/>
+        <img src={imageLink} alt={pokemon.name + " artwork"}/>
         <PokemonHistory url={pokemon.species.url}/>
       </div>
       <img src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
