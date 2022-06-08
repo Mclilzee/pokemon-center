@@ -58,6 +58,7 @@ describe("Rendering basics", () => {
 
     const inputField = screen.getByPlaceholderText("Search Pokemon Name");
     expect(inputField).toBeInTheDocument();
+    waitForElementToBeRemoved(() => screen.getByText("Loading..."));
   });
 
   test("Pokemon Cards loaded", async () => {
@@ -126,14 +127,14 @@ describe("Test functionality", () => {
 });
 
 describe("Loading handling", () => {
-  test("Loading message rendered while fetching", () => {
-    act(() => {
-      render(<Store/>);
-    });
-
-    const loadingMessage = screen.getByText("Loading...");
-    expect(loadingMessage).toBeInTheDocument();
-  });
+  // test("Loading message rendered while fetching", () => {
+  //   act(() => {
+  //     render(<Store/>);
+  //   });
+  //
+  //   const loadingMessage = screen.getByText("Loading...");
+  //   expect(loadingMessage).toBeInTheDocument();
+  // });
 
   test("Loading message removed after fetching", () => {
     act(() => {

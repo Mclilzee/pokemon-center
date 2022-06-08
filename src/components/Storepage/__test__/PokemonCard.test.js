@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 function MockPokemonCard(props) {
   return (
     <BrowserRouter>
-      <PokemonCard name={props.name} url={props.url} handleSubmit={props.handleSubmit}/>
+      <PokemonCard url={props.url} handleSubmit={props.handleSubmit}/>
     </BrowserRouter>
   );
 }
@@ -97,20 +97,10 @@ describe("Renders all elements", () => {
     const addToCartButton = await screen.findByRole("button", {name: "Add to Cart"});
     expect(addToCartButton).toBeInTheDocument();
   });
-
 });
 
 describe("Loading handling", () => {
-  test("Loading message rendered while fetching", () => {
-    act(() => {
-      render(<Store/>);
-    });
-
-    const loadingMessage = screen.getByText("Loading...");
-    expect(loadingMessage).toBeInTheDocument();
-  });
-
-  test("Loading message removed after fetching", () => {
+  test("Loading message to show and be removed after data fetched", () => {
     act(() => {
       render(<Store/>);
     });
