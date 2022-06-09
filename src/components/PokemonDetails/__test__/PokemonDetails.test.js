@@ -1,5 +1,13 @@
 import React from "react";
-import { act, screen, render } from "@testing-library/react";
+import {
+  act,
+  screen,
+  render,
+  findByText,
+  waitForElementToBeRemoved,
+  queryByText,
+  queryByTestId, findByTestId
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PokemonDetails from "../PokemonDetails";
 
@@ -90,6 +98,13 @@ jest.mock("../PokemonHistory", () => (props) => {
       <h2>Obviously prefers hot places.</h2>
       <h3 data-testid={"habitat-test"} className={"habitat-message"}>Habitat : Sea</h3>
       <h3 data-testid={"evolve-test"}>Evolves from : Bulbasaur</h3>
+    </div>
+  );
+});
+
+jest.mock("../../NotFoundError/NotFoundError", () => (props) => {
+  return (
+    <div data-testid={"notfound-page-test"}>
     </div>
   );
 });
@@ -301,5 +316,176 @@ describe("Abilities rendering", () => {
 
     const lightningRodAbility = await screen.findByText("Lightning-rod");
     expect(lightningRodAbility).toHaveTextContent(/\( hidden \)/);
+  });
+});
+
+describe("Type rendering", () => {
+  test("Electric type rendered", async () => {
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const electricType = await screen.findByText("Electric");
+    expect(electricType).toBeInTheDocument();
+  });
+
+  test("Electric type has right class", async () => {
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const electricType = await screen.findByText("Electric");
+    expect(electricType).toHaveClass("electric");
+  });
+
+  test("Normal type rendered", async () => {
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const normalType = await screen.findByText("Normal");
+    expect(normalType).toBeInTheDocument();
+  });
+
+  test("Normal type has right class", async () => {
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const normalType = await screen.findByText("Normal");
+    expect(normalType).toHaveClass("normal");
+  });
+});
+
+describe("Weight and Height", () => {
+  test("Weight rendered in kg when above 1 kg", async () => {
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const weightText = await screen.findByText("Weight: 6kg");
+    expect(weightText).toBeInTheDocument();
+  });
+
+  test("Weight rendered in g when bellow 1 kg", async () => {
+    const alteredMockPokemon = {...mockPokemon, weight: 6};
+    jest.spyOn(global, "fetch").mockImplementation(() => {
+      return Promise.resolve({
+        json: () => Promise.resolve(alteredMockPokemon)
+      });
+    });
+
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const weightText = await screen.findByText("Weight: 600g");
+    expect(weightText).toBeInTheDocument();
+  });
+
+  test("Height rendered in m when above 1 m", async () => {
+    const alteredMockPokemon = {...mockPokemon, height: 40};
+    jest.spyOn(global, "fetch").mockImplementation(() => {
+      return Promise.resolve({
+        json: () => Promise.resolve(alteredMockPokemon)
+      });
+    });
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const weightText = await screen.findByText("Height: 4m");
+    expect(weightText).toBeInTheDocument();
+  });
+
+  test("Height rendered in cm when bellow 1 m", async () => {
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const weightText = await screen.findByText("Height: 40cm");
+    expect(weightText).toBeInTheDocument();
+  });
+});
+
+describe("Loading handling", () => {
+  test("Show loading while fetching note finished", () => {
+    act(() => {
+      render(<PokemonDetails/>);
+    });
+
+    const loadingText = screen.getByText("Loading...");
+    expect(loadingText).toBeInTheDocument();
+    waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+  });
+
+  test("Loading text removed after finished fetching", () => {
+    act(() => {
+      render(<PokemonDetails/>);
+    });
+
+    waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+  });
+
+  test("Pokemon container not to show during loading", () => {
+    act(() => {
+      render(<PokemonDetails/>);
+    });
+
+    const pokemonContainer = screen.queryByTestId("pokemon-container-test");
+    expect(pokemonContainer).not.toBeInTheDocument();
+    waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+  });
+
+  test("Pokemon container to show after loading", async () => {
+    render(<PokemonDetails/>);
+
+    await waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+    const pokemonContainer = screen.getByTestId("pokemon-container-test");
+    expect(pokemonContainer).toBeInTheDocument();
+  });
+});
+
+describe("Error handling", () => {
+
+  test("Error message shown if fetching didn't complete", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() => Promise.reject());
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const errorText = await screen.findByTestId("error-test");
+    expect(errorText).toBeInTheDocument();
+  });
+
+  test("Pokemon container not to be in document on error", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() => Promise.reject());
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const errorText = screen.queryByTestId("pokemon-container-test");
+    expect(errorText).not.toBeInTheDocument();
+  });
+
+  test("NotFoundPage shown if pokemon not found", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() => Promise.reject(SyntaxError));
+
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const notFoundPage = await screen.findByTestId("notfound-page-test");
+    expect(notFoundPage).toBeInTheDocument();
+  });
+
+  test("Pokemon container not to be in document on pokemon not found", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() => Promise.reject(SyntaxError));
+    await act(async () => {
+      render(<PokemonDetails/>);
+    });
+
+    const errorText = screen.queryByTestId("pokemon-container-test");
+    expect(errorText).not.toBeInTheDocument();
   });
 });
