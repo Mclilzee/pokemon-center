@@ -1,13 +1,16 @@
 {
   "files": {
     "main.css": "/shopping-cart/static/css/main.3e67e570.css",
-    "main.js": "/shopping-cart/static/js/main.f179f04d.js",
+    "main.js": "/shopping-cart/static/js/main.6f7a2e19.js",
+    "static/media/pokemon-ball.png": "/shopping-cart/static/media/pokemon-ball.fa389b740250d06e14fb.png",
     "index.html": "/shopping-cart/index.html",
+    "static/media/arrow_next.svg": "/shopping-cart/static/media/arrow_next.5761bac40a982f54dd19861b40208944.svg",
+    "static/media/arrow_previous.svg": "/shopping-cart/static/media/arrow_previous.d303cf69bfa7f8578036d064e1e46b98.svg",
     "main.3e67e570.css.map": "/shopping-cart/static/css/main.3e67e570.css.map",
-    "main.f179f04d.js.map": "/shopping-cart/static/js/main.f179f04d.js.map"
+    "main.6f7a2e19.js.map": "/shopping-cart/static/js/main.6f7a2e19.js.map"
   },
   "entrypoints": [
     "static/css/main.3e67e570.css",
-    "static/js/main.f179f04d.js"
+    "static/js/main.6f7a2e19.js"
   ]
 }
