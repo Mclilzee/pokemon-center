@@ -29,7 +29,7 @@ function PokemonDetails(props) {
   function generateWeightString() {
     const weightInKilo = pokemon.weight / 10;
     if (weightInKilo < 1) {
-      return weightInKilo * 100 + "g";
+      return weightInKilo * 1000 + "g";
     }
 
     return weightInKilo + "kg";
@@ -48,7 +48,7 @@ function PokemonDetails(props) {
     if (error instanceof SyntaxError) {
       return <NotFoundError/>;
     } else {
-      return <h1>Error loading the page, check your internet connection, or refresh.</h1>;
+      return <h1 data-testid={"error-test"}>Error loading the page, check your internet connection, or refresh.</h1>;
     }
   }
 
@@ -72,7 +72,7 @@ function PokemonDetails(props) {
     pokemon.sprites.other["official-artwork"].front_default : "../assets/images/pokemon-ball.png";
 
   return (
-    <div className={"pokemon-container"}>
+    <div data-testid={"pokemon-container-test"} className={"pokemon-container"}>
       <div className={"pokemon-view"}>
         <h1>{capitalize(pokemon.name)}</h1>
         <img src={imageLink} alt={pokemon.name + " artwork"}/>
