@@ -1,8 +1,7 @@
 import React from "react";
-import { screen, render, act } from "@testing-library/react";
+import { screen, render, act, getByText } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Stat from "../Stat";
-import stat from "../Stat";
 
 describe("Basic rendering", () => {
   test("Renders correctly", () => {
@@ -27,5 +26,14 @@ describe("Basic rendering", () => {
 
     const statNumber = screen.getByText(/30/i);
     expect(statNumber).toBeInTheDocument();
+  });
+
+  test("Had correct class name", () => {
+    act(() => {
+      render(<Stat className="hp" name={"Hp"}/>);
+    });
+
+    const statElement = screen.getByText(/hp/i);
+    expect(statElement).toHaveClass("hp");
   });
 });

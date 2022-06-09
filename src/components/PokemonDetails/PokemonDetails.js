@@ -1,4 +1,5 @@
 import React from "react";
+import "./PokemonDetails.css";
 import { capitalize } from "../../helperFunctions";
 import NotFoundError from "../NotFoundError/NotFoundError";
 import { useParams } from "react-router-dom";
@@ -57,7 +58,13 @@ function PokemonDetails(props) {
   }
 
   const stats = pokemon.stats.map(item => {
-    return <Stat key={item.stat.name} name={capitalize(item.stat.name)} number={item.base_stat}/>;
+    return (
+      <Stat key={item.stat.name}
+            className={props.className}
+            name={capitalize(item.stat.name)}
+            number={item.base_stat}
+      />
+    );
   });
 
   const abilities = pokemon.abilities.map(item => {
@@ -74,22 +81,27 @@ function PokemonDetails(props) {
   return (
     <div data-testid={"pokemon-container-test"} className={"pokemon-container"}>
       <div className={"pokemon-view"}>
-        <h1>{capitalize(pokemon.name)}</h1>
-        <img src={imageLink} alt={pokemon.name + " artwork"}/>
+        <h1 className={"pokemon-name"}>{capitalize(pokemon.name)}</h1>
+        <img className={"pokemon-front-image"} src={imageLink} alt={pokemon.name + " artwork"}/>
         <PokemonHistory url={pokemon.species.url}/>
       </div>
-      <img src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
-      <ul>
-        {stats}
-      </ul>
-      <ul className={"ability-container"}>
-        {abilities}
-      </ul>
-      <ul className={"type-container"}>
-        {types}
-      </ul>
-      <p className={"height"}>Height: {generateHeightString()}</p>
-      <p className={"weight"}>Weight: {generateWeightString()}</p>
+      <div className={"pokemon-details"}>
+        <img className={"pokemon-game-icon"} src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
+        <ul className={"types-container"}>
+          <h4>Types</h4>
+          {types}
+        </ul>
+        <ul className={"stats-container"}>
+          <h4>Stats</h4>
+          {stats}
+        </ul>
+        <ul className={"abilities-container"}>
+          <h4>Abilities</h4>
+          {abilities}
+        </ul>
+        <p className={"pokemon-height"}>Height: {generateHeightString()}</p>
+        <p className={"pokemon-weight"}>Weight: {generateWeightString()}</p>
+      </div>
     </div>
   );
 

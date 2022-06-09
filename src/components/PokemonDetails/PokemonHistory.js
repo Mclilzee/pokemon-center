@@ -30,7 +30,7 @@ function PokemonHistory(props) {
   }
 
   if (error !== null) {
-    return <div data-testid={"error-message"}></div>
+    return <div data-testid={"error-message"}></div>;
   }
 
   if (history === null) {
@@ -40,8 +40,14 @@ function PokemonHistory(props) {
   return (
     <div className={"pokemon-history"}>
       <h2 className={"flavor-message"}>{history.flavor_text_entries[0].flavor_text}</h2>
-      <h3 className={"habitat-message"}>Habitat : {capitalize(history.habitat.name)}</h3>
-      <h3 data-testid={"evolution-test"} className={"evolve-message"}>Evolves from : {generateEvolutionLink()}</h3>
+      <div className={"habitat-message"}>
+        <h3>Habitat</h3>
+        <h3>{capitalize(history.habitat.name)}</h3>
+      </div>
+      <div data-testid={"evolution-test"}>
+        <h3>Evolves from</h3>
+        <h3>{generateEvolutionLink()}</h3>
+      </div>
     </div>
   );
 }
