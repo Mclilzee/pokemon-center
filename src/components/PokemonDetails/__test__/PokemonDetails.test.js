@@ -203,7 +203,7 @@ describe("Image rendering", () => {
     });
 
     const image = await screen.findByAltText("pikachu artwork");
-    expect(image).toHaveAttribute("src", "../assets/images/pokemon-ball.png");
+    expect(image).toHaveAttribute("src", "pokemon-ball.png");
   });
 
   test("Show game icon", async () => {

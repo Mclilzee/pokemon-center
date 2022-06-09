@@ -1,4 +1,6 @@
 import React from "react";
+import previousArrowIcon from "../../assets/icons/arrow_previous.svg";
+import nextArrowIcon from "../../assets/icons/arrow_next.svg";
 
 function Page(props) {
 
@@ -72,7 +74,7 @@ function Page(props) {
       <img style={previousPageStyle}
            onClick={handlePreviousArrowClick}
            className="previous-page-arrow"
-           src={"./assets/icons/arrow_previous.svg"}
+           src={previousArrowIcon}
            alt={"previous arrow"}
       />
       <div data-testid="previous-number"
@@ -93,7 +95,7 @@ function Page(props) {
       <img style={nextPageStyle}
            onClick={handleNextPageArrowClick}
            className={"next-page-arrow"}
-           src={"./assets/icons/arrow_next.svg"}
+           src={nextArrowIcon}
            alt={"next arrow"}
       />
     </div>

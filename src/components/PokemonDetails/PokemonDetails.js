@@ -7,6 +7,8 @@ import Ability from "./Ability";
 import Type from "./Type";
 import Stat from "./Stat";
 import PokemonHistory from "./PokemonHistory";
+import pokemonBallImage from "../../assets/images/pokemon-ball.png";
+
 
 function PokemonDetails(props) {
   const [pokemon, setPokemon] = React.useState(null);
@@ -76,7 +78,7 @@ function PokemonDetails(props) {
   });
 
   const imageLink = pokemon.sprites.other["official-artwork"].front_default ?
-    pokemon.sprites.other["official-artwork"].front_default : "../assets/images/pokemon-ball.png";
+    pokemon.sprites.other["official-artwork"].front_default : pokemonBallImage;
 
   return (
     <div data-testid={"pokemon-container-test"} className={"pokemon-container"}>
