@@ -90,15 +90,15 @@ function PokemonDetails(props) {
       <div className={"pokemon-details"}>
         <img className={"pokemon-game-icon"} src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
         <ul className={"types-container"}>
-          <h4>Types</h4>
+          <h4 className={"title"}>Types</h4>
           {types}
         </ul>
         <ul className={"stats-container"}>
-          <h4>Stats</h4>
+          <h4 className={"title"}>Stats</h4>
           {stats}
         </ul>
         <ul className={"abilities-container"}>
-          <h4>Abilities</h4>
+          <h4 className={"title"}>Abilities</h4>
           {abilities}
         </ul>
         <p className={"pokemon-height"}>Height: {generateHeightString()}</p>

@@ -1,36 +1,108 @@
 .pokemon-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   justify-content: center;
-  padding: 50px;
+  padding: 20px;
+  gap: 20px;
+  text-align: center;
 }
 
-.pokemon-view {
-  width: 30%;
+.pokemon-view,
+.pokemon-details {
+  max-width: 100%;
   grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
+}
+
+
+.pokemon-view > .pokemon-name {
+  font-size: min(2rem, 5vw);
 }
 
 .pokemon-view > .pokemon-front-image {
   max-width: 100%;
+  border: solid grey;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px black;
 }
 
 .pokemon-view > .pokemon-history {
-  text-align: center;
-}
-
-.pokemon-view .flavor-message {
-  font-size: min(1.6rem, 4vw);
-}
-
-.pokemon-view .habitat-message {
-  font-size: min(1.5rem, 3vw)
-}
-
-.pokemon-details {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
+  gap: 10px;
+}
+
+.pokemon-view .flavor-message {
+  margin: 5px 0;
+  font-size: min(1.5rem, 5vw);
+  border-bottom: solid saddlebrown;
+  padding-bottom: 20px;
+}
+
+.pokemon-view .habitat-message {
+  font-size: min(1.5rem, 4vw);
+  border-radius: 10px 5px 10px 5px;
+  background-color: #395507;
+  padding: 10px;
+  color: white;
+}
+
+.pokemon-view .habitat-message > h3 {
+  margin: 0;
+}
+
+.pokemon-view .habitat-message > .habitat {
+  font-size: min(1rem, 4vw);
+}
+
+.pokemon-view .evolution-message {
+  padding: 10px;
+  border: double darkslateblue 5px;
+  border-radius: 20px 20px 5px 5px;
+
+}
+
+.pokemon-view .evolution-message > h3 {
+  margin: 0;
+}
+
+.pokemon-view .evolution-message > .evolves-from {
+  font-size: min(1rem, 4vw);
+}
+
+.pokemon-view .evolution-message > .evolution-name {
+  font-size: min(1.5rem, 4vw);
+}
+
+.pokemon-view .evolution-message > .evolution-name > a {
+  font-size: min(1.5rem, 5vw);
+  text-decoration: underline solid transparent;
+  transition: text-decoration 0.2s;
+  color: #0066cf;
+}
+
+.pokemon-view .evolution-message > .evolution-name > a:hover {
+  text-decoration: underline;
+}
+
+.pokemon-details > .pokemon-game-icon {
+  max-width: 100%;
+}
+
+.pokemon-details > ul,
+.pokemon-details > ul > .title {
+  margin: 0;
+  padding: 0;
+}
+
+.pokemon-details > ul {
+  width: 100%;
+}
+
+.pokemon-details > ul > li {
+  list-style: none;
 }

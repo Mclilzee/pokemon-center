@@ -41,12 +41,12 @@ function PokemonHistory(props) {
     <div className={"pokemon-history"}>
       <h2 className={"flavor-message"}>{history.flavor_text_entries[0].flavor_text}</h2>
       <div className={"habitat-message"}>
-        <h3>Habitat</h3>
-        <h3>{capitalize(history.habitat.name)}</h3>
+        <h3 className={"habitat"}>Habitat</h3>
+        <h3 className={"habitat-name"}>{capitalize(history.habitat.name)}</h3>
       </div>
-      <div data-testid={"evolution-test"}>
-        <h3>Evolves from</h3>
-        <h3>{generateEvolutionLink()}</h3>
+      <div data-testid={"evolution-test"} className={"evolution-message"}>
+        <h3 className={"evolves-from"}>Evolves from</h3>
+        <h3 className={"evolution-name"}>{generateEvolutionLink()}</h3>
       </div>
     </div>
   );
