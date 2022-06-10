@@ -62,7 +62,7 @@ function PokemonDetails(props) {
   const stats = pokemon.stats.map(item => {
     return (
       <Stat key={item.stat.name}
-            className={props.className}
+            className={item.stat.name}
             name={capitalize(item.stat.name)}
             number={item.base_stat}
       />

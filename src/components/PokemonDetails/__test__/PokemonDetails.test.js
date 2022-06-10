@@ -231,7 +231,7 @@ describe("Stats rendering", () => {
       render(<PokemonDetails/>);
     });
 
-    const hpStat = await screen.findByText("Hp : 35");
+    const hpStat = await screen.findByText("Hp 35");
     expect(hpStat).toBeInTheDocument();
   });
 
@@ -240,7 +240,7 @@ describe("Stats rendering", () => {
       render(<PokemonDetails/>);
     });
 
-    const attackStat = await screen.findByText("Attack : 55");
+    const attackStat = await screen.findByText("Attack 55");
     expect(attackStat).toBeInTheDocument();
   });
 
@@ -249,7 +249,7 @@ describe("Stats rendering", () => {
       render(<PokemonDetails/>);
     });
 
-    const defenseStat = await screen.findByText("Defense : 40");
+    const defenseStat = await screen.findByText("Defense 40");
     expect(defenseStat).toBeInTheDocument();
   });
 
@@ -258,7 +258,7 @@ describe("Stats rendering", () => {
       render(<PokemonDetails/>);
     });
 
-    const specialAttackStat = await screen.findByText("Special-attack : 50");
+    const specialAttackStat = await screen.findByText("Special-attack 50");
     expect(specialAttackStat).toBeInTheDocument();
   });
 
@@ -267,7 +267,7 @@ describe("Stats rendering", () => {
       render(<PokemonDetails/>);
     });
 
-    const specialDefenseStat = await screen.findByText("Special-defense : 50");
+    const specialDefenseStat = await screen.findByText("Special-defense 50");
     expect(specialDefenseStat).toBeInTheDocument();
   });
 
@@ -276,7 +276,7 @@ describe("Stats rendering", () => {
       render(<PokemonDetails/>);
     });
 
-    const speedStat = await screen.findByText("Speed : 90");
+    const speedStat = await screen.findByText("Speed 90");
     expect(speedStat).toBeInTheDocument();
   });
 });
