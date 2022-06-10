@@ -13,8 +13,7 @@ function Homepage(props) {
         Isn't this a perfect world that you wish you live in?
       </p>
       <p className={"warning-message"} data-testid={"warning-message"}>Warning: Before going to the store, make sure you
-        are on a wifi connection. The store will be constantly downloading images, especialy if you make use of the fast
-        rapid search function.</p>
+        are on a wifi connection. The store will be constantly downloading images, especially if you make use of the rapid search function.</p>
     </div>
   );
 }
