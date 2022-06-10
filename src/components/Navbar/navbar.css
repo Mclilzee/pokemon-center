@@ -13,6 +13,13 @@
   color: white;
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar a > img {
+  max-width: 30px;
+  color: white;
 }
 
 .navbar > a:hover {
