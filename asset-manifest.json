@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/shopping-cart/static/css/main.3e67e570.css",
-    "main.js": "/shopping-cart/static/js/main.6f7a2e19.js",
-    "static/media/pokemon-ball.png": "/shopping-cart/static/media/pokemon-ball.fa389b740250d06e14fb.png",
-    "index.html": "/shopping-cart/index.html",
-    "static/media/arrow_next.svg": "/shopping-cart/static/media/arrow_next.5761bac40a982f54dd19861b40208944.svg",
-    "static/media/arrow_previous.svg": "/shopping-cart/static/media/arrow_previous.d303cf69bfa7f8578036d064e1e46b98.svg",
-    "main.3e67e570.css.map": "/shopping-cart/static/css/main.3e67e570.css.map",
-    "main.6f7a2e19.js.map": "/shopping-cart/static/js/main.6f7a2e19.js.map"
+    "main.css": "/pokemon-center/static/css/main.e9d982f1.css",
+    "main.js": "/pokemon-center/static/js/main.1c0ebbd5.js",
+    "static/media/pokemon-ball.png": "/pokemon-center/static/media/pokemon-ball.fa389b740250d06e14fb.png",
+    "index.html": "/pokemon-center/index.html",
+    "static/media/arrow_next.svg": "/pokemon-center/static/media/arrow_next.5761bac40a982f54dd19861b40208944.svg",
+    "static/media/arrow_previous.svg": "/pokemon-center/static/media/arrow_previous.d303cf69bfa7f8578036d064e1e46b98.svg",
+    "main.e9d982f1.css.map": "/pokemon-center/static/css/main.e9d982f1.css.map",
+    "main.1c0ebbd5.js.map": "/pokemon-center/static/js/main.1c0ebbd5.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e67e570.css",
-    "static/js/main.6f7a2e19.js"
+    "static/css/main.e9d982f1.css",
+    "static/js/main.1c0ebbd5.js"
   ]
 }
