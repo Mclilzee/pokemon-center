@@ -22,6 +22,9 @@ function App() {
       for (let pokemon of newArray) {
         if (pokemon.name === pokemonName) {
           pokemon.amount += amount;
+          if (pokemon.amount > 10) {
+            pokemon.amount = 10;
+          }
           return newArray;
         }
       }

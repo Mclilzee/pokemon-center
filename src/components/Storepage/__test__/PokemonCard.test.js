@@ -179,7 +179,7 @@ describe("User input functionality", () => {
 
     const inputField = await screen.findByDisplayValue("1");
     userEvent.type(inputField, "9999");
-    expect(inputField.value).toBe("100");
+    expect(inputField.value).toBe("10");
   });
 
   test("Input min limit", async () => {

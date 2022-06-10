@@ -20,7 +20,7 @@ body {
   box-shadow: black 1px 5px 10px;
 }
 
-.navbar > a {
+.navbar a {
   color: white;
   cursor: pointer;
   text-decoration: none;
@@ -29,3 +29,24 @@ body {
 .navbar > a:hover {
   transform: scale(110%);
 }
+
+.cart-link {
+  position: relative;
+}
+
+.cart-link > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  left: -10px;
+  background-color: red;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  aspect-ratio: 1 / 1;
+}
+
+

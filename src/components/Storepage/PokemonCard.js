@@ -44,8 +44,8 @@ function PokemonCard(props) {
     let result = e.target.value;
     if (result < 1) {
       result = 1;
-    } else if (result > 100) {
-      result = 100;
+    } else if (result > 10) {
+      result = 10;
     }
 
     setAmount(result);
