@@ -8,7 +8,13 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
 
-  const [cartArray, setCartArray] = React.useState([]);
+  const [cartArray, setCartArray] = React.useState(() => {
+    return JSON.parse(localStorage.getItem("pokemons")) || [];
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem("pokemons", JSON.stringify(cartArray));
+  }, [cartArray]);
 
   function addPokemonToCart(pokemonName, amount) {
     setCartArray(prevState => {

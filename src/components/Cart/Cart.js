@@ -8,7 +8,9 @@ function Cart(props) {
     return <CartPokemon key={item.name} name={item.name} amount={item.amount}/>;
   });
   return (
-    <h1>{pokemons}</h1>
+    <div className={"cart-container"}>
+      {pokemons}
+    </div>
   );
 }
 
