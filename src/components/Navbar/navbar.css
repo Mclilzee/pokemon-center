@@ -1,0 +1,39 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #4b7ac7;
+  font-size: min(1rem, 3vw);
+  box-shadow: black 1px 5px 10px;
+}
+
+.navbar a {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navbar > a:hover {
+  transform: scale(110%);
+}
+
+.cart-link {
+  position: relative;
+}
+
+.cart-link > .cart-length {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  left: -10px;
+  background-color: red;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  aspect-ratio: 1 / 1;
+}
