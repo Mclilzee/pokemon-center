@@ -41,7 +41,7 @@ function PokemonCard(props) {
   }
 
   function changeAmount(e) {
-    let result = e.target.value;
+    let result = Number(e.target.value);
     if (result < 1) {
       result = 1;
     } else if (result > 10) {
@@ -75,8 +75,8 @@ function PokemonCard(props) {
         <button className={"details-button"}>Details</button>
       </Link>
       <form onSubmit={handleSubmit} className={"add-form"}>
-        <button className={"add-button"}>Add to Cart</button>
-        <input min={1} max={100} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
+        <button type={"submit"} className={"add-button"}>Add to Cart</button>
+        <input min={1} max={10} className={"add-input"} onChange={changeAmount} type={"number"} value={amount}/>
       </form>
     </div>
   );
