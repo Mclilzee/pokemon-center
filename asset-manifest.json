@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/pokemon-center/static/css/main.1e086f73.css",
-    "main.js": "/pokemon-center/static/js/main.f1e75a1e.js",
+    "main.css": "/pokemon-center/static/css/main.3eb5cfa9.css",
+    "main.js": "/pokemon-center/static/js/main.f5eb1a6b.js",
     "static/media/pokemon-ball.png": "/pokemon-center/static/media/pokemon-ball.fa389b740250d06e14fb.png",
     "static/media/shopping-cart.svg": "/pokemon-center/static/media/shopping-cart.965d9cba7597e35f490ea1190b1af5eb.svg",
     "static/media/shopping-bag.svg": "/pokemon-center/static/media/shopping-bag.7e1264e81e3d47dddf8e25b46bfe633a.svg",
@@ -11,11 +11,11 @@
     "static/media/house.svg": "/pokemon-center/static/media/house.057a7a9415173233f087a7a6e70c5b7c.svg",
     "static/media/arrow_next.svg": "/pokemon-center/static/media/arrow_next.5761bac40a982f54dd19861b40208944.svg",
     "static/media/arrow_previous.svg": "/pokemon-center/static/media/arrow_previous.d303cf69bfa7f8578036d064e1e46b98.svg",
-    "main.1e086f73.css.map": "/pokemon-center/static/css/main.1e086f73.css.map",
-    "main.f1e75a1e.js.map": "/pokemon-center/static/js/main.f1e75a1e.js.map"
+    "main.3eb5cfa9.css.map": "/pokemon-center/static/css/main.3eb5cfa9.css.map",
+    "main.f5eb1a6b.js.map": "/pokemon-center/static/js/main.f5eb1a6b.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e086f73.css",
-    "static/js/main.f1e75a1e.js"
+    "static/css/main.3eb5cfa9.css",
+    "static/js/main.f5eb1a6b.js"
   ]
 }
