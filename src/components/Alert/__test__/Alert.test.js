@@ -1,12 +1,18 @@
 import React from "react";
 import { screen, render, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 import Alert from "../Alert";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Completed alert rendering", () => {
   beforeEach(() => {
     act(() => {
-      render(<Alert message={"You have successfully added an item"} completed={true}/>);
+      render(
+        <BrowserRouter>
+          <Alert message={"You have successfully added an item"} completed={true}/>
+        </BrowserRouter>
+      );
     });
   });
 
@@ -34,7 +40,11 @@ describe("Completed alert rendering", () => {
 describe("Error alert rendering", () => {
   beforeEach(() => {
     act(() => {
-      render(<Alert message={"You have failed to add an item"} completed={false}/>);
+      render(
+        <BrowserRouter>
+          <Alert message={"You have failed to add an item"} completed={false}/>
+        </BrowserRouter>
+      );
     });
   });
 
@@ -57,4 +67,46 @@ describe("Error alert rendering", () => {
     const icon = screen.getByRole("img");
     expect(icon).toHaveAttribute("src", "error.svg");
   });
-})
+});
+
+describe("Buttons functionality handling", () => {
+  const mockFunction = jest.fn();
+  beforeEach(() => {
+    act(() => {
+      render(
+        <BrowserRouter>
+          <Alert message={"You have successfully added an item"} hideAlert={mockFunction}/>
+        </BrowserRouter>
+      );
+    });
+  });
+
+  test("Contains continue shopping button", () => {
+    const continueShopping = screen.getByRole("button", {name: "Continue Shopping"});
+    expect(continueShopping).toBeInTheDocument();
+  });
+
+  test("Clicking continue shopping button calls the function", () => {
+    const continueShopping = screen.getByRole("button", {name: "Continue Shopping"});
+    userEvent.click(continueShopping);
+    userEvent.click(continueShopping);
+    expect(mockFunction).toBeCalledTimes(2);
+  });
+
+  test("Contains go to cart button", () => {
+    const goToCart = screen.getByRole("button", {name: "Go to cart"});
+    expect(goToCart).toBeInTheDocument();
+  });
+
+  test("Clicking go to cart button calls the function", () => {
+    const goToCart = screen.getByRole("button", {name: "Go to cart"});
+    userEvent.click(goToCart);
+    userEvent.click(goToCart);
+    expect(mockFunction).toBeCalledTimes(2);
+  });
+
+  test("Go to cart button has to correct link", () => {
+    const goToCart = screen.getByRole("button", {name: "Go to cart"});
+    expect(goToCart.parentElement).toHaveAttribute("href", "/cart");
+  });
+});
