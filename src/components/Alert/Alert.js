@@ -4,6 +4,9 @@ import errorIcon from "../../assets/icons/error.svg";
 
 function Alert(props) {
 
+  if (props.message === undefined) {
+    return <></>;
+  }
   return (
     <div className={"alert-container"}>
       <h1>{props.completed ? "Success!" : "Error"}</h1>
