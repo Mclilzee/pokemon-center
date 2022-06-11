@@ -22,7 +22,7 @@ function App() {
 
   React.useEffect(() => {
     setDisplayAlert(true);
-    setTimeout(() => setDisplayAlert(false), 3000);
+    setTimeout(() => setDisplayAlert(false), 4000);
   }, [alert]);
 
   function addPokemonToCart(pokemonName, amount) {
