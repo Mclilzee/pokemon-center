@@ -14,6 +14,8 @@ function Alert(props) {
         <h1 className={"title"}>{props.completed ? "Success!" : "Error"}</h1>
         <img src={props.completed ? completedIcon : errorIcon} alt={props.completed ? "completed icon" : "error icon"}/>
         <h2 className={"message"}>{props.message}</h2>
+        <button className={"continue-shopping-button"} onClick={props.continueShopping}>Continue Shopping</button>
+        <button className={"cart-button"}>Go to cart</button>
       </div>
     </div>
   );

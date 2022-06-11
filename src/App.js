@@ -14,7 +14,7 @@ function App() {
     return JSON.parse(localStorage.getItem("pokemons")) || {};
   });
   const [alert, setAlert] = React.useState({});
-  const [displayAlert, setDisplayAlert] = React.useState(false);
+  const [displayAlert, setDisplayAlert] = React.useState(true);
 
   React.useEffect(() => {
     localStorage.setItem("pokemons", JSON.stringify(cartContent));
@@ -22,7 +22,6 @@ function App() {
 
   React.useEffect(() => {
     setDisplayAlert(true);
-    setTimeout(() => setDisplayAlert(false), 4000);
   }, [alert]);
 
   function addPokemonToCart(pokemonName, amount) {
@@ -54,7 +53,6 @@ function App() {
     return {...prevState, [pokemonName]: {name: pokemonName, amount: newAmount}};
   }
 
-
   function setErrorAlert() {
     setAlert({
       message: "You can only buy 10 of each type of pokemon!",
@@ -69,8 +67,12 @@ function App() {
     });
   }
 
+  function continueShopping() {
+    setDisplayAlert(false);
+  }
+
   return (<div>
-    {displayAlert && <Alert message={alert.message} completed={alert.completed}/>}
+    {displayAlert && <Alert message={alert.message} completed={alert.completed} continueShopping={continueShopping}/>}
     <Navbar cartLength={Object.keys(cartContent).length}/>
     <Routes>
       <Route path={"/"} element={<Homepage/>}/>
