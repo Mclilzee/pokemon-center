@@ -3,7 +3,10 @@ import React from "react";
 function CartPokemon(props) {
 
   return (
-    <h1>{props.name} {props.amount}</h1>
+    <div>
+      <h1>{props.name} {props.amount}</h1>
+      <img src={props.icon} alt={props.name + " icon"}/>
+    </div>
   );
 }
 

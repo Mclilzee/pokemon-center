@@ -24,22 +24,22 @@ function App() {
     setDisplayAlert(true);
   }, [alert]);
 
-  function addPokemonToCart(pokemonName, amount) {
+  function addPokemonToCart(pokemonName, icon, amount) {
     if (amount > 10) {
       amount = 10;
     }
 
     setCartContent(prevState => {
       if (prevState[pokemonName] !== undefined) {
-        return adjustPokemonAmount(prevState, pokemonName, amount);
+        return adjustPokemonAmount(prevState, pokemonName, icon, amount);
       } else {
         setSuccessfulAlert(capitalize(pokemonName), amount);
-        return {...prevState, [pokemonName]: {name: pokemonName, amount}};
+        return {...prevState, [pokemonName]: {name: pokemonName, icon, amount}};
       }
     });
   }
 
-  function adjustPokemonAmount(prevState, pokemonName, amount) {
+  function adjustPokemonAmount(prevState, pokemonName, icon,  amount) {
     if (prevState[pokemonName].amount >= 10) {
       setErrorAlert();
       return {...prevState};
@@ -50,7 +50,7 @@ function App() {
       newAmount = 10;
     }
     setSuccessfulAlert(capitalize(pokemonName), newAmount);
-    return {...prevState, [pokemonName]: {name: pokemonName, amount: newAmount}};
+    return {...prevState, [pokemonName]: {name: pokemonName, icon, amount: newAmount}};
   }
 
   function setErrorAlert() {

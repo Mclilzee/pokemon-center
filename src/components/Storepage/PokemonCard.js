@@ -53,7 +53,7 @@ function PokemonCard(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.handleSubmit(pokemon.name, amount);
+    props.handleSubmit(pokemon.name, pokemon.sprites.back_default, amount);
   }
 
   if (errorMessage !== null) {
