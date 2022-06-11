@@ -3,7 +3,7 @@ import CartPokemon from "./CartPokemon";
 
 function Cart(props) {
 
-  const pokemons = props.pokemons.map(item => {
+  const pokemons = Object.values(props.pokemons).map(item => {
     return <CartPokemon key={item.name} name={item.name} amount={item.amount}/>;
   });
   return (
