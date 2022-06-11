@@ -67,12 +67,12 @@ function App() {
     });
   }
 
-  function continueShopping() {
+  function hideAlert() {
     setDisplayAlert(false);
   }
 
   return (<div>
-    {displayAlert && <Alert message={alert.message} completed={alert.completed} continueShopping={continueShopping}/>}
+    {displayAlert && <Alert message={alert.message} completed={alert.completed} hideAlert={hideAlert}/>}
     <Navbar cartLength={Object.keys(cartContent).length}/>
     <Routes>
       <Route path={"/"} element={<Homepage/>}/>
