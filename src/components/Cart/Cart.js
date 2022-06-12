@@ -5,7 +5,7 @@ import "./cart.css";
 function Cart(props) {
 
   const pokemons = Object.values(props.pokemons).map(item => {
-    return <CartPokemon key={item.name} name={item.name} icon={item.icon} amount={item.amount}/>;
+    return <CartPokemon key={item.name} name={item.name} icon={item.icon} amount={item.amount} removePokemon={props.removePokemon}/>;
   });
   return (
     <div className={"cart-container"}>

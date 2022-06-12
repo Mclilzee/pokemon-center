@@ -33,15 +33,15 @@ function App() {
       if (prevState[pokemonName] !== undefined) {
         return adjustPokemonAmount(prevState, pokemonName, icon, amount);
       } else {
-        setSuccessfulAlert(capitalize(pokemonName), amount);
+        setPokemonAddedToCartAlert(capitalize(pokemonName), amount);
         return {...prevState, [pokemonName]: {name: pokemonName, icon, amount}};
       }
     });
   }
 
-  function adjustPokemonAmount(prevState, pokemonName, icon,  amount) {
+  function adjustPokemonAmount(prevState, pokemonName, icon, amount) {
     if (prevState[pokemonName].amount >= 10) {
-      setErrorAlert();
+      setPokemonBuyLimitAlert();
       return {...prevState};
     }
 
@@ -49,20 +49,36 @@ function App() {
     if (newAmount > 10) {
       newAmount = 10;
     }
-    setSuccessfulAlert(capitalize(pokemonName), newAmount);
+    setPokemonAddedToCartAlert(capitalize(pokemonName), newAmount);
     return {...prevState, [pokemonName]: {name: pokemonName, icon, amount: newAmount}};
   }
 
-  function setErrorAlert() {
+  function removePokemon(pokemonName) {
+    setCartContent(prevState => {
+      const newCartContent = {...prevState};
+      delete newCartContent[pokemonName];
+      setPokemonRemovedFromCartAlert(pokemonName)
+      return newCartContent;
+    });
+  }
+
+  function setPokemonBuyLimitAlert() {
     setAlert({
       message: "You can only buy 10 of each type of pokemon!",
       completed: false
     });
   }
 
-  function setSuccessfulAlert(pokemonName, amount) {
+  function setPokemonAddedToCartAlert(pokemonName, amount) {
     setAlert({
       message: `You now have ${amount} of ${pokemonName} in Cart!`,
+      completed: true
+    });
+  }
+
+  function setPokemonRemovedFromCartAlert(pokemonName) {
+    setAlert({
+      message: `${pokemonName} has been removed from Cart`,
       completed: true
     });
   }
@@ -78,7 +94,7 @@ function App() {
       <Route path={"/"} element={<Homepage/>}/>
       <Route path={"/store"} element={<Store handleSubmit={addPokemonToCart}/>}/>
       <Route path={"/pokemon/:pokemonName"} element={<PokemonDetails/>}/>
-      <Route path={"/cart"} element={<Cart pokemons={cartContent}/>}/>
+      <Route path={"/cart"} element={<Cart pokemons={cartContent} removePokemon={removePokemon}/>}/>
     </Routes>
   </div>);
 }
