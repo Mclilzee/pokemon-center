@@ -40,10 +40,10 @@ function PokemonHistory(props) {
   return (
     <div className={"pokemon-history"}>
       {history.flavor_text_entries !== null &&
-        <h2 className={"flavor-message"}>{history.flavor_text_entries[0].flavor_text}</h2>
+        <h2 data-testid={"flavor-test"} className={"flavor-message"}>{history.flavor_text_entries[0].flavor_text}</h2>
       }
       {history.habitat !== null &&
-        <div className={"habitat-message"}>
+        <div data-testid={"habitat-test"} className={"habitat-message"}>
           <h3 className={"habitat"}>Habitat</h3>
           <h3 className={"habitat-name"}>{capitalize(history.habitat.name)}</h3>
         </div>
