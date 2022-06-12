@@ -1,0 +1,70 @@
+.cart-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-choice-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.user-choice-container > button {
+  padding: 15px 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  background-color: lightskyblue;
+  cursor: pointer;
+}
+
+.user-choice-container > button:hover {
+  transform: scale(110%);
+}
+
+.cart-items-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  justify-content: center;
+  gap: 40px;
+}
+
+.cart-pokemon {
+  display: grid;
+  grid-template-columns: 80px 100px 45px 1fr;
+  gap: 5px;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px black;
+}
+
+.cart-pokemon > .pokemon-icon {
+  max-width: 100%;
+}
+
+.cart-pokemon > .pokemon-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-decoration: underline solid transparent;
+  transition: text-decoration 0.2s;
+  color: #0066cf;
+}
+
+.cart-pokemon > .amount-input {
+
+}
+
+.cart-pokemon > .remove-button {
+  align-self: stretch;
+  margin-left: 20px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgba(241, 48, 48, 0.84);
+  border: none;
+  font-weight: bold;
+}
