@@ -19,7 +19,9 @@ function Alert(props) {
           <h2 className={"message"}>{props.message}</h2>
         </div>
         <div className={"buttons"}>
-          <button className={"continue-shopping-button"} onClick={props.hideAlert}>Continue Shopping</button>
+          <Link to={"/store"}>
+            <button className={"continue-shopping-button"} onClick={props.hideAlert}>Continue Shopping</button>
+          </Link>
           <Link to={"/cart"}>
             <button className={"cart-button"} onClick={props.hideAlert}>Go to cart</button>
           </Link>
