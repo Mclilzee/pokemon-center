@@ -93,6 +93,11 @@ describe("Buttons functionality handling", () => {
     expect(mockFunction).toBeCalledTimes(2);
   });
 
+  test("Continue shopping button has correct link", () => {
+    const goToCart = screen.getByRole("button", {name: "Continue Shopping"});
+    expect(goToCart.parentElement).toHaveAttribute("href", "/store");
+  });
+
   test("Contains go to cart button", () => {
     const goToCart = screen.getByRole("button", {name: "Go to cart"});
     expect(goToCart).toBeInTheDocument();
@@ -105,7 +110,7 @@ describe("Buttons functionality handling", () => {
     expect(mockFunction).toBeCalledTimes(2);
   });
 
-  test("Go to cart button has to correct link", () => {
+  test("Go to cart button has correct link", () => {
     const goToCart = screen.getByRole("button", {name: "Go to cart"});
     expect(goToCart.parentElement).toHaveAttribute("href", "/cart");
   });
