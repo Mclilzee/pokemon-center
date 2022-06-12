@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
+import { act, findByTestId, render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PokemonHistory from "../PokemonHistory";
 import { BrowserRouter } from "react-router-dom";
@@ -36,76 +36,63 @@ beforeEach(() => {
 });
 
 describe("Basic rendering", () => {
-  test("Renders", async () => {
-    await act(async() => {
+  beforeEach(async () => {
+    await act(async () => {
       render(<MockHistory/>);
     });
   });
 
   test("Flavor text to be in document", async () => {
-    await act(async() => {
-      render(<MockHistory/>);
-    });
-
     const flavorText = await screen.findByText("The plant blooms.");
     expect(flavorText).toBeInTheDocument();
   });
 
   test("Habitat text to be in document", async () => {
-    await act(async() => {
-      render(<MockHistory/>);
-    });
-
     const habitatText = await screen.findByText(/grassland/i);
     expect(habitatText).toBeInTheDocument();
   });
 
   test("Evolution link to be in document", async () => {
-    await act(async() => {
-      render(<MockHistory/>);
-    });
-
     const evolutionLink = await screen.findByRole("link", {name: /ivysaur/i});
     expect(evolutionLink).toBeInTheDocument();
   });
 
   test("Evolution link to have correct href", async () => {
-    await act(async() => {
-      render(<MockHistory/>);
-    });
-
     const evolutionLink = await screen.findByRole("link", {name: /ivysaur/i});
     expect(evolutionLink).toHaveAttribute("href", "/pokemon/ivysaur");
   });
+});
 
-  test("There is no link if no evolution happened", async () => {
-    const alteredHistory = {...pokemonHistory, evolves_from_species: null};
+describe("Information that does not exist", () => {
+  const alteredHistory = {...pokemonHistory, habitat: null, flavor_text_entries: null, evolves_from_species: null};
+  beforeEach(async () => {
     jest.spyOn(global, "fetch").mockImplementation(() => {
       return Promise.resolve({
         json: () => Promise.resolve(alteredHistory)
       });
     });
 
-    await act(async() => {
+    await act(async () => {
       render(<MockHistory/>);
     });
+  });
 
+  test("Pokemon has no flavor text", async () => {
+    const flavorText = screen.queryByTestId("flavor-test");
+    expect(flavorText).not.toBeInTheDocument();
+  });
+
+  test("Pokemon has no habitat", async () => {
+    const habitat = screen.queryByTestId("habitat-test");
+    expect(habitat).not.toBeInTheDocument();
+  });
+
+  test("There is no link if no evolution happened", async () => {
     const linkElement = screen.queryByRole("link");
     expect(linkElement).not.toBeInTheDocument();
   });
 
   test("Show none if there was no evolution", async () => {
-    const alteredHistory = {...pokemonHistory, evolves_from_species: null};
-    jest.spyOn(global, "fetch").mockImplementation(() => {
-      return Promise.resolve({
-        json: () => Promise.resolve(alteredHistory)
-      });
-    });
-
-    await act(async() => {
-      render(<MockHistory/>);
-    });
-
     const linkElement = await screen.findByTestId("evolution-test");
     expect(linkElement.textContent).toMatch(/none/i);
   });
