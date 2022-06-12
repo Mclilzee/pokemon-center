@@ -1,5 +1,6 @@
 import React from "react";
 import CartPokemon from "./CartPokemon";
+import "./cart.css";
 
 function Cart(props) {
 
@@ -8,7 +9,13 @@ function Cart(props) {
   });
   return (
     <div className={"cart-container"}>
-      {pokemons}
+      <div className={"user-choice-container"}>
+        <button className={"confirm-button"}>Confirm puchrase</button>
+        <button className={"clear-button"}>Clear cart</button>
+      </div>
+      <div className={"cart-items-container"}>
+        {pokemons}
+      </div>
     </div>
   );
 }
