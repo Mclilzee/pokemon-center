@@ -57,9 +57,18 @@ function App() {
     setCartContent(prevState => {
       const newCartContent = {...prevState};
       delete newCartContent[pokemonName];
-      setPokemonRemovedFromCartAlert(pokemonName)
+      setPokemonRemovedFromCartAlert(capitalize(pokemonName));
       return newCartContent;
     });
+  }
+
+  function clearCart() {
+    setCartContent({});
+    setAlert({message: "Cart is now empty!", completed: true});
+  }
+
+  function confirmPurchase() {
+    setAlert({message: "This was a prank! you can't really buy pokemons, let alone free ones.", completed: false});
   }
 
   function setPokemonBuyLimitAlert() {
@@ -94,7 +103,8 @@ function App() {
       <Route path={"/"} element={<Homepage/>}/>
       <Route path={"/store"} element={<Store handleSubmit={addPokemonToCart}/>}/>
       <Route path={"/pokemon/:pokemonName"} element={<PokemonDetails/>}/>
-      <Route path={"/cart"} element={<Cart pokemons={cartContent} removePokemon={removePokemon}/>}/>
+      <Route path={"/cart"}
+             element={<Cart pokemons={cartContent} removePokemon={removePokemon} clearCart={clearCart} confirmPurchase={confirmPurchase}/>}/>
     </Routes>
   </div>);
 }
