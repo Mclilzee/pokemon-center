@@ -72,3 +72,9 @@
   border: none;
   font-weight: bold;
 }
+
+.empty-cart-message {
+  text-align: center;
+  padding: 100px 0;
+  color: grey;
+}
