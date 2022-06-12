@@ -35,7 +35,8 @@
 
 .cart-pokemon {
   display: grid;
-  grid-template-columns: 80px 100px 45px 1fr;
+  grid-template-columns: 80px 120px 45px 1fr;
+  grid-template-rows: 100px;
   gap: 5px;
   align-items: center;
   border-radius: 10px;
@@ -49,10 +50,13 @@
 .cart-pokemon > .pokemon-name {
   font-size: 1.2rem;
   font-weight: bold;
-  text-decoration: none;
   text-decoration: underline solid transparent;
   transition: text-decoration 0.2s;
-  color: #0066cf;
+  color: #0066cf
+}
+
+.cart-pokemon > .pokemon-name:hover {
+  text-decoration: underline solid;
 }
 
 .cart-pokemon > .amount-input {
@@ -61,7 +65,7 @@
 
 .cart-pokemon > .remove-button {
   align-self: stretch;
-  margin-left: 20px;
+  margin-left: 10px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: rgba(241, 48, 48, 0.84);
