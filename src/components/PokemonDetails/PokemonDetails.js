@@ -1,5 +1,5 @@
 import React from "react";
-import "./PokemonDetails.css";
+import "./pokemonDetails.css";
 import { capitalize } from "../../helperFunctions";
 import NotFoundError from "../NotFoundError/NotFoundError";
 import { useParams } from "react-router-dom";
@@ -77,8 +77,10 @@ function PokemonDetails(props) {
     return <Type name={item.type.name} key={item.type.name}/>;
   });
 
-  const imageLink = pokemon.sprites.other["official-artwork"].front_default ?
+  const imageLink = pokemon.sprites.other["official-artwork"].front_default !== null ?
     pokemon.sprites.other["official-artwork"].front_default : pokemonBallImage;
+
+  const pokemonIcon = pokemon.sprites.back_default !== null ? pokemon.sprites.back_default : pokemonBallImage;
 
   return (
     <div data-testid={"pokemon-container-test"} className={"pokemon-container"}>
@@ -88,7 +90,7 @@ function PokemonDetails(props) {
         <PokemonHistory url={pokemon.species.url}/>
       </div>
       <div className={"pokemon-details"}>
-        <img className={"pokemon-game-icon"} src={pokemon.sprites.back_default} alt={pokemon.name + " game icon"}/>
+        <img className={"pokemon-game-icon"} src={pokemonIcon} alt={pokemon.name + " game icon"}/>
         <ul className={"types-container"}>
           <h4 className={"title"}>Types</h4>
           {types}

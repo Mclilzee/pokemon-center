@@ -96,7 +96,7 @@
 }
 
 .pokemon-details > .pokemon-game-icon {
-  max-width: 100%;
+  max-width: 100px;
 }
 
 .pokemon-details > ul,
