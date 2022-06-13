@@ -26,7 +26,7 @@ function Cart(props) {
   return (
     <div className={"cart-container"}>
       <div className={"user-choice-container"}>
-        <button onClick={props.confirmPurchase} className={"confirm-button"}>Confirm puchrase</button>
+        <button onClick={props.confirmPurchase} className={"confirm-button"}>Confirm purchase</button>
         <button onClick={props.clearCart} className={"clear-button"}>Clear cart</button>
       </div>
       <div className={"cart-items-container"}>
