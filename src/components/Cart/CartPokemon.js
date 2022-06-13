@@ -8,6 +8,12 @@ function CartPokemon(props) {
     props.removePokemon(props.name);
   }
 
+  function handleAmountChange(e) {
+    const newAmount = Number(e.target.value);
+
+    props.handleAmountChange(props.name, newAmount);
+  }
+
   return (
     <div className={"cart-pokemon"}>
       <img className={"pokemon-icon"} src={props.icon !== null ? props.icon : pokemonBallImage}
@@ -15,7 +21,8 @@ function CartPokemon(props) {
       <Link className={"pokemon-name"} to={`/pokemon/${props.name}`}>
         {props.name}
       </Link>
-      <input className={"amount-input"} type={"number"} min={1} max={10} value={props.amount}/>
+      <input className={"amount-input"} type={"number"} min={1} max={10} value={props.amount}
+             onChange={handleAmountChange}/>
       <button onClick={handleRemoveClick} className={"remove-button"}>X</button>
     </div>
   );

@@ -5,8 +5,16 @@ import "./cart.css";
 function Cart(props) {
 
   const pokemons = Object.values(props.pokemons).map(item => {
-    return <CartPokemon key={item.name} name={item.name} icon={item.icon} amount={item.amount}
-                        removePokemon={props.removePokemon}/>;
+    return (
+      <CartPokemon
+        key={item.name}
+        name={item.name}
+        icon={item.icon}
+        amount={item.amount}
+        removePokemon={props.removePokemon}
+        handleAmountChange={props.handleAmountChange}
+      />
+    );
   });
 
   if (Object.values(props.pokemons).length === 0) {

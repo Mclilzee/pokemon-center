@@ -8,6 +8,8 @@ import Alert from "./components/Alert/Alert";
 import { Routes, Route } from "react-router-dom";
 import { capitalize } from "./helperFunctions";
 
+const maxLimit = 10;
+
 function App() {
 
   const [cartContent, setCartContent] = React.useState(() => {
@@ -25,8 +27,10 @@ function App() {
   }, [alert]);
 
   function addPokemonToCart(pokemonName, icon, amount) {
-    if (amount > 10) {
-      amount = 10;
+    if (amount > maxLimit) {
+      amount = maxLimit;
+    } else if (amount < 1) {
+      amount = 1;
     }
 
     setCartContent(prevState => {
@@ -40,15 +44,18 @@ function App() {
   }
 
   function adjustPokemonAmount(prevState, pokemonName, icon, amount) {
-    if (prevState[pokemonName].amount >= 10) {
+    if (prevState[pokemonName].amount >= maxLimit) {
       setPokemonBuyLimitAlert();
       return {...prevState};
     }
 
     let newAmount = prevState[pokemonName].amount + amount;
-    if (newAmount > 10) {
-      newAmount = 10;
+    if (newAmount > maxLimit) {
+      newAmount = maxLimit;
+    } else if (newAmount < 1) {
+      newAmount = 1;
     }
+
     setPokemonAddedToCartAlert(capitalize(pokemonName), newAmount);
     return {...prevState, [pokemonName]: {name: pokemonName, icon, amount: newAmount}};
   }
@@ -59,6 +66,18 @@ function App() {
       delete newCartContent[pokemonName];
       setPokemonRemovedFromCartAlert(capitalize(pokemonName));
       return newCartContent;
+    });
+  }
+
+  function handleAmountChange(pokemonName, newAmount) {
+    if (newAmount > maxLimit) {
+      newAmount = maxLimit;
+    } else if (newAmount < 1) {
+      newAmount = 1;
+    }
+
+    setCartContent(prevState => {
+      return {...prevState, [pokemonName]: {name: pokemonName, icon: prevState[pokemonName].icon, amount: newAmount}};
     });
   }
 
@@ -104,7 +123,16 @@ function App() {
       <Route path={"/store"} element={<Store handleSubmit={addPokemonToCart}/>}/>
       <Route path={"/pokemon/:pokemonName"} element={<PokemonDetails/>}/>
       <Route path={"/cart"}
-             element={<Cart pokemons={cartContent} removePokemon={removePokemon} clearCart={clearCart} confirmPurchase={confirmPurchase}/>}/>
+             element={
+               <Cart
+                 pokemons={cartContent}
+                 removePokemon={removePokemon}
+                 clearCart={clearCart}
+                 confirmPurchase={confirmPurchase}
+                 handleAmountChange={handleAmountChange}
+               />
+             }
+      />
     </Routes>
   </div>);
 }
