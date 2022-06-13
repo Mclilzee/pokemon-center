@@ -16,7 +16,7 @@ function CartPokemon(props) {
 
   return (
     <div className={"cart-pokemon"}>
-      <img className={"pokemon-icon"} src={props.icon !== null ? props.icon : pokemonBallImage}
+      <img className={"pokemon-icon"} src={props.icon ? props.icon : pokemonBallImage}
            alt={props.name + " icon"}/>
       <Link className={"pokemon-name"} to={`/pokemon/${props.name}`}>
         {props.name}
