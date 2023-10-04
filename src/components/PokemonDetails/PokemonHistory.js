@@ -5,6 +5,7 @@ import { capitalize } from "../../helperFunctions";
 function PokemonHistory(props) {
   const [history, setHistory] = React.useState(null);
   const [error, setError] = React.useState(null);
+  const [flavorText, setFlavorText] = React.useState(null);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -18,26 +19,19 @@ function PokemonHistory(props) {
     }
 
     fetchData();
-  });
+  }, [props.url]);
 
-  function getFlavorMessage() {
-    if (history.flavor_text_entries == null) {
-      return null;
+  React.useEffect(() => {
+    if (history === null || history.flavor_text_entries === null) {
+      return
     }
 
-    const englishText = history.flavor_text_entries
+    setFlavorText(history.flavor_text_entries
       .reverse()
       .map(x => x.flavor_text)
-      .find(x => x.match(/^[a-zA-Z]/gi));
-
-    if (englishText == null) {
-      return null
-    }
-
-    return <h2 data-testid={"flavor-test"} className={"flavor-message"}>
-      {englishText}
-    </h2 >
-  }
+      .find(x => x.match(/^[a-zA-Z]/gi))
+    );
+  }, [history]);
 
   function generateEvolutionLink() {
     if (history.evolves_from_species === null) {
@@ -58,7 +52,11 @@ function PokemonHistory(props) {
 
   return (
     <div className={"pokemon-history"}>
-      {getFlavorMessage()}
+      {flavorText !== null &&
+        <h2 data-testid={"flavor-test"} className={"flavor-message"}>
+          {flavorText}
+        </h2 >
+      }
       {history.habitat !== null &&
         <div data-testid={"habitat-test"} className={"habitat-message"}>
           <h3 className={"habitat"}>Habitat</h3>

@@ -18,6 +18,9 @@ const pokemonHistory = {
     },
     {
       flavor_text: "This pokemon is a flower"
+    },
+    {
+      flavor_text: "うまれたときから　せなかに\nふしぎな　タネが　うえてあって\nからだと　ともに　そだつという"
     }
   ],
   habitat: {
