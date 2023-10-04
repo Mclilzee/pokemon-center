@@ -20,7 +20,24 @@ function PokemonHistory(props) {
     fetchData();
   });
 
-  const getLast = xs => xs[xs.length - 1];
+  function getFlavorMessage() {
+    if (history.flavor_text_entries == null) {
+      return null;
+    }
+
+    const englishText = history.flavor_text_entries
+      .reverse()
+      .map(x => x.flavor_text)
+      .find(x => x.match(/^[a-zA-Z]/gi));
+
+    if (englishText == null) {
+      return null
+    }
+
+    return <h2 data-testid={"flavor-test"} className={"flavor-message"}>
+      {englishText}
+    </h2 >
+  }
 
   function generateEvolutionLink() {
     if (history.evolves_from_species === null) {
@@ -41,11 +58,7 @@ function PokemonHistory(props) {
 
   return (
     <div className={"pokemon-history"}>
-      {history.flavor_text_entries !== null &&
-        <h2 data-testid={"flavor-test"} className={"flavor-message"}>
-          {getLast(history.flavor_text_entries).flavor_text}
-        </h2>
-      }
+      {getFlavorMessage()}
       {history.habitat !== null &&
         <div data-testid={"habitat-test"} className={"habitat-message"}>
           <h3 className={"habitat"}>Habitat</h3>
