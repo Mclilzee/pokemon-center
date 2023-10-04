@@ -20,13 +20,15 @@ function PokemonHistory(props) {
     fetchData();
   });
 
+  const getLast = xs => xs[xs.length - 1];
+
   function generateEvolutionLink() {
     if (history.evolves_from_species === null) {
       return "None";
     }
 
     const evolvesFrom = history.evolves_from_species.name;
-    return <Link className={"evolve-link"} to={`/pokemon/${evolvesFrom}`}>{capitalize(evolvesFrom)}< /Link>;
+    return <Link className={"evolve-link"} to={`/pokemon/${evolvesFrom}`}>{capitalize(evolvesFrom)}</Link>;
   }
 
   if (error !== null) {
@@ -40,7 +42,9 @@ function PokemonHistory(props) {
   return (
     <div className={"pokemon-history"}>
       {history.flavor_text_entries !== null &&
-        <h2 data-testid={"flavor-test"} className={"flavor-message"}>{history.flavor_text_entries[0].flavor_text}</h2>
+        <h2 data-testid={"flavor-test"} className={"flavor-message"}>
+          {getLast(history.flavor_text_entries).flavor_text}
+        </h2>
       }
       {history.habitat !== null &&
         <div data-testid={"habitat-test"} className={"habitat-message"}>
