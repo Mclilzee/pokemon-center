@@ -10,10 +10,10 @@ import PokemonHistory from "./PokemonHistory";
 import pokemonBallImage from "../../assets/images/pokemon-ball.png";
 
 
-function PokemonDetails(props) {
+function PokemonDetails() {
   const [pokemon, setPokemon] = React.useState(null);
   const [error, setError] = React.useState(null);
-  const {pokemonName} = useParams();
+  const { pokemonName } = useParams();
 
   React.useEffect(() => {
     async function fetchData() {
@@ -49,7 +49,7 @@ function PokemonDetails(props) {
 
   if (error !== null) {
     if (error instanceof SyntaxError) {
-      return <NotFoundError/>;
+      return <NotFoundError />;
     } else {
       return <h1 data-testid={"error-test"}>Error loading the page, check your internet connection, or refresh.</h1>;
     }
@@ -62,19 +62,19 @@ function PokemonDetails(props) {
   const stats = pokemon.stats.map(item => {
     return (
       <Stat key={item.stat.name}
-            className={item.stat.name}
-            name={capitalize(item.stat.name)}
-            number={item.base_stat}
+        className={item.stat.name}
+        name={capitalize(item.stat.name)}
+        number={item.base_stat}
       />
     );
   });
 
   const abilities = pokemon.abilities.map(item => {
-    return <Ability name={capitalize(item.ability.name)} key={item.ability.name} hidden={item.is_hidden}/>;
+    return <Ability name={capitalize(item.ability.name)} key={item.ability.name} hidden={item.is_hidden} />;
   });
 
   const types = pokemon.types.map(item => {
-    return <Type name={item.type.name} key={item.type.name}/>;
+    return <Type name={item.type.name} key={item.type.name} />;
   });
 
   const imageLink = pokemon.sprites.other["official-artwork"].front_default !== null ?
@@ -86,11 +86,11 @@ function PokemonDetails(props) {
     <div data-testid={"pokemon-container-test"} className={"pokemon-container"}>
       <div className={"pokemon-view"}>
         <h1 className={"pokemon-name"}>{capitalize(pokemon.name)}</h1>
-        <img className={"pokemon-front-image"} src={imageLink} alt={pokemon.name + " artwork"}/>
-        <PokemonHistory url={pokemon.species.url}/>
+        <img className={"pokemon-front-image"} src={imageLink} alt={pokemon.name + " artwork"} />
+        <PokemonHistory url={pokemon.species.url} />
       </div>
       <div className={"pokemon-details"}>
-        <img className={"pokemon-game-icon"} src={pokemonIcon} alt={pokemon.name + " game icon"}/>
+        <img className={"pokemon-game-icon"} src={pokemonIcon} alt={pokemon.name + " game icon"} />
         <ul className={"types-container"}>
           <h4 className={"title"}>Types</h4>
           {types}
