@@ -12,6 +12,12 @@ const pokemonHistory = {
   flavor_text_entries: [
     {
       flavor_text: "The plant blooms."
+    },
+    {
+      flavor_text: "This pokemon has a bloom"
+    },
+    {
+      flavor_text: "This pokemon is a flower"
     }
   ],
   habitat: {
@@ -22,7 +28,7 @@ const pokemonHistory = {
 function MockHistory() {
   return (
     <BrowserRouter>
-      <PokemonHistory/>
+      <PokemonHistory />
     </BrowserRouter>
   );
 }
@@ -38,12 +44,12 @@ beforeEach(() => {
 describe("Basic rendering", () => {
   beforeEach(async () => {
     await act(async () => {
-      render(<MockHistory/>);
+      render(<MockHistory />);
     });
   });
 
   test("Flavor text to be in document", async () => {
-    const flavorText = await screen.findByText("The plant blooms.");
+    const flavorText = await screen.findByText("This pokemon is a flower");
     expect(flavorText).toBeInTheDocument();
   });
 
@@ -53,18 +59,18 @@ describe("Basic rendering", () => {
   });
 
   test("Evolution link to be in document", async () => {
-    const evolutionLink = await screen.findByRole("link", {name: /ivysaur/i});
+    const evolutionLink = await screen.findByRole("link", { name: /ivysaur/i });
     expect(evolutionLink).toBeInTheDocument();
   });
 
   test("Evolution link to have correct href", async () => {
-    const evolutionLink = await screen.findByRole("link", {name: /ivysaur/i});
+    const evolutionLink = await screen.findByRole("link", { name: /ivysaur/i });
     expect(evolutionLink).toHaveAttribute("href", "/pokemon/ivysaur");
   });
 });
 
 describe("Information that does not exist", () => {
-  const alteredHistory = {...pokemonHistory, habitat: null, flavor_text_entries: null, evolves_from_species: null};
+  const alteredHistory = { ...pokemonHistory, habitat: null, flavor_text_entries: null, evolves_from_species: null };
   beforeEach(async () => {
     jest.spyOn(global, "fetch").mockImplementation(() => {
       return Promise.resolve({
@@ -73,7 +79,7 @@ describe("Information that does not exist", () => {
     });
 
     await act(async () => {
-      render(<MockHistory/>);
+      render(<MockHistory />);
     });
   });
 
@@ -101,7 +107,7 @@ describe("Information that does not exist", () => {
 describe("Loading handling", () => {
   test("Loading message to show while fetching data", () => {
     act(() => {
-      render(<MockHistory/>);
+      render(<MockHistory />);
     });
 
     const loadingMessage = screen.getByText("Loading...");
@@ -111,7 +117,7 @@ describe("Loading handling", () => {
 
   test("Loading message to be removed after fetching data", () => {
     act(() => {
-      render(<MockHistory/>);
+      render(<MockHistory />);
     });
 
     waitForElementToBeRemoved(() => screen.getByText("Loading..."));
@@ -127,7 +133,7 @@ describe("Error handling", () => {
 
   test("Error message shown on promise reject", async () => {
     await act(async () => {
-      render(<MockHistory/>);
+      render(<MockHistory />);
     });
 
     const errorElement = await screen.findByTestId("error-message");
@@ -136,7 +142,7 @@ describe("Error handling", () => {
 
   test("Flavor text not to be in document", async () => {
     await act(async () => {
-      render(<MockHistory/>);
+      render(<MockHistory />);
     });
 
     const flavorText = screen.queryByText("The plant blooms.");
@@ -145,7 +151,7 @@ describe("Error handling", () => {
 
   test("Habitat text not to be in document", async () => {
     await act(async () => {
-      render(<MockHistory/>);
+      render(<MockHistory />);
     });
 
     const habitatText = screen.queryByText(/grassland/i);
@@ -154,10 +160,10 @@ describe("Error handling", () => {
 
   test("Evolution link not to be in document", async () => {
     await act(async () => {
-      render(<MockHistory/>);
+      render(<MockHistory />);
     });
 
-    const evolutionLink = screen.queryByRole("link", {name: /ivysaur/i});
+    const evolutionLink = screen.queryByRole("link", { name: /ivysaur/i });
     expect(evolutionLink).not.toBeInTheDocument();
   });
 });
